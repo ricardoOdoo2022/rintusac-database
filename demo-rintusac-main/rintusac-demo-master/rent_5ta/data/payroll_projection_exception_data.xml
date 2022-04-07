@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--"payroll.projection.exception""-->
+
+        <record id="payroll_projection_exception_01" model="payroll.projection.exception">
+            <field name="name">Remuneración Computable</field>
+            <field name="is_active">1</field>
+        </record>
+
+        <record id="payroll_projection_exception_02" model="payroll.projection.exception">
+            <field name="name">Otros (computables)</field>
+            <field name="is_active">1</field>
+        </record>
+
+        <record id="payroll_projection_exception_03" model="payroll.projection.exception">
+            <field name="name">Remuneración Computable Mensual</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_04" model="payroll.projection.exception">
+            <field name="name">x resto de meses (proyección de ingresos hasta el final del periodo</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_05" model="payroll.projection.exception">
+            <field name="name">Total remuneraciones proyectadas del periodo</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_06" model="payroll.projection.exception">
+            <field name="name">Rem. Meses anteriores</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_07" model="payroll.projection.exception">
+            <field name="name">Gratificación</field>
+            <field name="is_active">1</field>
+        </record>
+
+        <record id="payroll_projection_exception_10" model="payroll.projection.exception">
+            <field name="name">Remuneraciones percibidas</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_11" model="payroll.projection.exception">
+            <field name="name">Ajustes</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_ajuste_total_ing_anual_proy" model="payroll.projection.exception">
+            <field name="name">Ajuste - Total ingreso anual proyectado</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_12" model="payroll.projection.exception">
+            <field name="name">Total ingreso anual proyectado</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_13" model="payroll.projection.exception">
+            <field name="name">Deducción 7 UITs</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_14" model="payroll.projection.exception">
+            <field name="name">Renta Neta anual proyectada</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <!-- r1 -->
+        <record id="payroll_projection_exception_total_1" model="payroll.projection.exception">
+            <field name="name">(-) Retenciones de meses Anteriores</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_retencion_otras_empresas" model="payroll.projection.exception">
+            <field name="name">Retención de otras empresas</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_total_2" model="payroll.projection.exception">
+            <field name="name">Total renta anual proyectado</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_total_3" model="payroll.projection.exception">
+            <field name="name">Factor</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_total_4" model="payroll.projection.exception">
+            <field name="name">Retención mensual R1</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_r2_1" model="payroll.projection.exception">
+            <field name="name">Renta Neta</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_09" model="payroll.projection.exception">
+            <field name="name">Utilidades</field>
+            <field name="is_active">1</field>
+        </record>
+
+        <record id="payroll_projection_exception_08" model="payroll.projection.exception">
+            <field name="name">Bonificación extraordinaria</field>
+            <field name="is_active">1</field>
+        </record>
+
+        <record id="payroll_projection_exception_r2_2" model="payroll.projection.exception">
+            <field name="name">Total Renta Neta</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <!--  r2 -->
+        <record id="payroll_projection_exception_total_r2_1" model="payroll.projection.exception">
+            <field name="name">(-) IR anual por remuneraciones ordinarias</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_total_r2_2" model="payroll.projection.exception">
+            <field name="name">Retención afectada por los conceptos extraordinarios (R2)</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_total_r2_3" model="payroll.projection.exception">
+            <field name="name">Retención total (R1+R2)</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_total_ajuste_dev_imp_exceso" model="payroll.projection.exception">
+            <field name="name">Ajuste - Devolución de impuesto retenido en exceso</field>
+            <field name="is_active">0</field>
+        </record>
+
+        <record id="payroll_projection_exception_total_5" model="payroll.projection.exception">
+            <field name="name">Devolución de impuesto retenido en exceso</field>
+            <field name="is_active">0</field>
+        </record>
+
+    </data>
+</odoo>

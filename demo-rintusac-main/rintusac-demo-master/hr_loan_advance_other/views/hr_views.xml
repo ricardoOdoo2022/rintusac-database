@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="act_hr_employee_loan_request" model="ir.actions.act_window">
+        <field name="name">Loans</field>
+        <field name="res_model">hr.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'default_employee_id': active_id,
+            'search_default_myloan': 1,
+            }
+        </field>
+    </record>
+
+    <record id="act_hr_employee_other_discounts" model="ir.actions.act_window">
+        <field name="name">Other discounts</field>
+        <field name="res_model">hr.other.discounts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'default_employee_id': active_id,
+            'search_default_myOtherDiscounts': 1
+            }
+        </field>
+    </record>
+
+    <record id="hr_employee_form_view_inherit_hr_loan_advance_other" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.hr_loan_advance_other</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(act_hr_employee_loan_request)d"
+                        class="oe_stat_button"
+                        icon="fa-calendar"
+                        type="action"
+                        groups="hr.group_hr_manager,hr.group_hr_user">
+                    <field name="loan_count" widget="statinfo" string="Loans"/>
+                </button>
+                <button name="%(act_hr_employee_other_discounts)d"
+                    type="action"
+                    class="oe_stat_button"
+                    icon="fa-calendar"
+                    groups="hr.group_hr_manager,hr.group_hr_user">
+                    <field name="other_disc_count" widget="statinfo" string="Other discounts"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payslip_view_form_inherit_hr_loan_advance_other" model="ir.ui.view">
+        <field name="name">hr.payslip.view.form.inherit.hr_loan_advance_other</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='input_line_ids']//tree//field[@name='sequence']" position="after">
+                <field name="loan_line_ids" invisible="1"/>
+                <field name="discount_line_ids" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_salary_structure_form_view_inherit_hr_loan_advance_other" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.form.view.inherit.hr_loan_advance_other</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='schedule_pay']" position="after">
+                <field name="max_percent"/>
+                <field name="advance_date"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

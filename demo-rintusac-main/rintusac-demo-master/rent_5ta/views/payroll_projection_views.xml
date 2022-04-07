@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payroll_projection_form_view" model="ir.ui.view">
+        <field name="name">payroll.projection.form.view</field>
+        <field name="model">payroll.projection</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button name="close_rent_5ta" string="Cerrar" states='open' type="object" class="oe_highlight"/>
+                    <button name="open_rent_5ta" string="Abrir" states='closed' type="object" class="oe_highlight"/>
+                    <field name="state" readonly="1" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Conceptos">
+                            <field name="line_ids" widget="section_and_note_one2many"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="payroll_projection_line_form_view" model="ir.ui.view">
+        <field name="name">payroll.projection.line.form.view</field>
+        <field name="model">payroll.projection.line</field>
+        <field name="arch" type="xml">
+            <form edit="false" create="false" delete="false">
+                <group>
+                    <field name="name"/>
+                </group>
+                <group string="Montos">
+                    <group>
+                        <field name="january_amount"/>
+                        <field name="february_amount"/>
+                        <field name="march_amount"/>
+                        <field name="april_amount"/>
+                        <field name="may_amount"/>
+                        <field name="june_amount"/>
+                    </group>
+                    <group>
+                        <field name="july_amount"/>
+                        <field name="august_amount"/>
+                        <field name="september_amount"/>
+                        <field name="october_amount"/>
+                        <field name="november_amount"/>
+                        <field name="december_amount"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="payroll_projection_tree_view" model="ir.ui.view">
+        <field name="name">payroll.projection.tree.view</field>
+        <field name="model">payroll.projection</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="employee_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="payroll_projection_line_tree_view" model="ir.ui.view">
+        <field name="name">payroll.projection.line.tree.view</field>
+        <field name="model">payroll.projection.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" delete="false" create="false">
+                <field name="sequence" invisible="1"/>
+                <field name="name" widget="section_and_note_text"/>
+                <field name="state" invisible="1"/>
+                <field name="projection_id" invisible="1"/>
+                <field name="exception_id" invisible="1"/>
+                <field name="display_type" invisible="1"/>
+                <field name="january_amount"/>
+                <field name="february_amount"/>
+                <field name="march_amount"/>
+                <field name="april_amount"/>
+                <field name="may_amount"/>
+                <field name="june_amount"/>
+                <field name="july_amount"/>
+                <field name="august_amount"/>
+                <field name="september_amount"/>
+                <field name="october_amount"/>
+                <field name="november_amount"/>
+                <field name="december_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_payroll_projection" model="ir.actions.act_window">
+        <field name="name">Renta de 5ta</field>
+        <field name="res_model">payroll.projection</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="rule_payroll_projection_multi_company" model="ir.rule">
+        <field name="name">Payroll Projection</field>
+        <field name="model_id" ref="rent_5ta.model_payroll_projection"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <menuitem id="menu_hr_rent_5ta_root"
+              name="Renta de 5ta"
+              groups="hr_payroll.group_hr_payroll_manager"
+              parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root"
+              sequence="73"
+    />
+
+    <menuitem id="menu_hr_rent_5ta"
+              name="Renta de 5ta"
+              parent="menu_hr_rent_5ta_root"
+              action="action_payroll_projection"
+              sequence="1"
+    />
+
+</odoo>

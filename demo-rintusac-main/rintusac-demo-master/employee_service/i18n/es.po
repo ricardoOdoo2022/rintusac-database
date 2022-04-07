@@ -1,0 +1,92 @@
+#. module: employee_service
+#: model_terms:ir.ui.view,arch_db:employee_service.view_employee_form_inherit_employee_service
+msgid "<span class=\"ml8 mr8\">month(s)</span>"
+msgstr "<span class=\"ml8 mr8\">mes(es)</span>"
+
+#. module: employee_service
+#: model_terms:ir.ui.view,arch_db:employee_service.view_employee_form_inherit_employee_service
+msgid "<span class=\"ml8 mr8\">year(s)</span>"
+msgstr "<span class=\"ml8 mr8\">año(s)</span>"
+
+#. module: employee_service
+#: model_terms:ir.ui.view,arch_db:employee_service.view_employee_form_inherit_employee_service
+msgid "<span class=\"ml8\">day(s)</span>"
+msgstr "<span class=\"ml8\">día(s)</span>"
+
+#. module: employee_service
+#: model:ir.model,name:employee_service.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: employee_service
+#: model:ir.model.fields,field_description:employee_service.field_hr_employee__service_hire_date
+msgid "Hire Date"
+msgstr "Fecha de Contratación"
+
+#. module: employee_service
+#: model:ir.model.fields,help:employee_service.field_hr_employee__service_hire_date
+msgid "Hire date is normally the date an employee completes new hire paperwork"
+msgstr ""
+"La fecha de contratación es normalmente la fecha en la que el empleado "
+"completa el papeleo de contratación"
+
+#. module: employee_service
+#: model:ir.model.fields,field_description:employee_service.field_hr_employee__service_duration
+#: model_terms:ir.ui.view,arch_db:employee_service.view_employee_form_inherit_employee_service
+msgid "Service Duration"
+msgstr "Antigüedad"
+
+#. module: employee_service
+#: model:ir.model.fields,field_description:employee_service.field_hr_employee__service_duration_days
+msgid "Service Duration (days)"
+msgstr "Antigüedad (días)"
+
+#. module: employee_service
+#: model:ir.model.fields,field_description:employee_service.field_hr_employee__service_duration_months
+msgid "Service Duration (months)"
+msgstr "Antigüedad (meses)"
+
+#. module: employee_service
+#: model:ir.model.fields,field_description:employee_service.field_hr_employee__service_duration_years
+msgid "Service Duration (years)"
+msgstr "Antigüedad (años)"
+
+#. module: employee_service
+#: model_terms:ir.ui.view,arch_db:employee_service.view_employee_form_inherit_employee_service
+msgid "Service Information"
+msgstr "Información de la Antigüedad"
+
+#. module: employee_service
+#: model:ir.model.fields,help:employee_service.field_hr_employee__service_duration
+msgid "Service duration in days"
+msgstr "Antigüedad en días"
+
+#. module: employee_service
+#: model:ir.model.fields,field_description:employee_service.field_hr_employee__service_start_date
+msgid "Start Date"
+msgstr "Fecha de Inicio"
+
+#. module: employee_service
+#: model:ir.model.fields,help:employee_service.field_hr_employee__service_start_date
+msgid ""
+"Start date is the first day the employee actually works and this date is "
+"used for accrual leave allocations calculation"
+msgstr ""
+"La fecha de inicio es el primer día que el empleado realmente trabaja y esta "
+"fecha se utiliza para el cálculo de las asignaciones de vacaciones devengadas"
+
+#. module: employee_service
+#: model:ir.model.fields,field_description:employee_service.field_hr_employee__service_termination_date
+msgid "Termination Date"
+msgstr "Fecha de finalización"
+
+#. module: employee_service
+#: model:ir.model.fields,help:employee_service.field_hr_employee__service_termination_date
+msgid ""
+"Termination date is the last day the employee actually works and this date "
+"is used for accrual leave allocations calculation"
+msgstr ""
+"La fecha de finalización es el último día que el empleado realmente trabaja "
+"y esta fecha se utiliza para el cálculo de las asignaciones de vacaciones "
+"devengadas"
+

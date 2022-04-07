@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="academic_degree_view_form" model="ir.ui.view">
+        <field name="name">academic.degree.form</field>
+        <field name="model">academic.degree</field>
+        <field name="arch" type="xml">
+            <form string="[9] Situación educativa">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="academic_description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="academic_degree_view_tree" model="ir.ui.view">
+        <field name="name">academic.degree.tree</field>
+        <field name="model">academic.degree</field>
+        <field name="arch" type="xml">
+            <tree string="[9] Situación educativa">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="academic_description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="academic_degree_action" model="ir.actions.act_window">
+        <field name="name">[9] Situación educativa</field>
+        <field name="res_model">academic.degree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_academic_degree"
+              name="[9] Situación educativa"
+              parent="localization_menu.menu_hr_information_plame"
+              action="academic_degree_action"
+              sequence="9"
+    />
+
+</odoo>

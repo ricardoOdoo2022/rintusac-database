@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="tope_afp_view_tree" model="ir.ui.view">
+        <field name="name">tope.afp.view.tree</field>
+        <field name="model">tope.afp</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="top"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tope_afp_view_form" model="ir.ui.view">
+        <field name="name">tope.afp.view.form</field>
+        <field name="model">tope.afp</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="top"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_tope_afp" model="ir.actions.act_window">
+        <field name="name">Tope AFP</field>
+        <field name="res_model">tope.afp</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_nomina_tope_afp"
+              parent="localization_menu.menu_hr_localization_datos_nomina"
+              action="action_tope_afp"
+    />
+
+</odoo>

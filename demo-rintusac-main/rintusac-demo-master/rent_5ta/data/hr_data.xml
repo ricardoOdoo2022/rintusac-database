@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.salary.rule"-->
+        <record id="hr_salary_rule_b5t_001" model="hr.salary.rule">
+            <field name="name">Base 5ta categoría concep extraordinarios</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bas_001"/>
+            <field name="code">B5T_001</field>
+            <field name="sequence">109</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="note">Valida el date_start del payslip que se está calculando, y busca en el modelo payroll_proyection el importe que se encuentra en la columna que coincida con el mes del payslip que se está calculando  de la línea “Retención afectada por los conceptos extraordinarios</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('B5T_001') and inputs.dict.get('B5T_001').amount > 0:
+    result = inputs.B5T_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    line_ids = payslip.env['hr.payslip.line'].search([
+        ('slip_id', '!=', slip_id),
+        ('date_start', '=', payslip_id.date_start),
+        ('code', '=', 'B5T_001'),
+    ], limit=1)
+    result = 0
+    if not line_ids:
+        projection_id = payslip.env['payroll.projection'].search([
+            ('employee_id', '=', payslip_id.employee_id.id),
+            ('date_from', '&lt;=', payslip_id.date_start_dt),
+            ('date_to', '>=', payslip_id.date_start_dt),
+        ], limit=1)
+
+        if projection_id:
+            month = payslip_id.date_start[0:2]
+            # Get value of rent 5ta on specific line in payslip month
+            result = payslip.env['payroll.projection.wizard'].get_calc_per_month_project_line('rent_5ta.payroll_projection_exception_total_r2_2', projection_id, month)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_r5t_001" model="hr.salary.rule">
+            <field name="name">Dscto. 5ta Categoría</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dna_001"/>
+            <field name="code">R5T_001</field>
+            <field name="sequence">110</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('R5T_001') and inputs.dict.get('R5T_001').amount > 0:
+    result = inputs.R5T_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    result = 0
+    global_data = globals()
+    if 'B5T_001' in global_data and global_data['B5T_001'] > 0:
+        result = B5T_001
+    projection_id = payslip.env['payroll.projection'].search([
+        ('employee_id', '=', payslip_id.employee_id.id),
+        ('date_from', '&lt;=', payslip_id.date_start_dt),
+        ('date_to', '>=', payslip_id.date_start_dt),
+    ], limit=1)
+
+    if projection_id:
+        month = payslip_id.date_start[0:2]
+        # Get value of rent 5ta on specific line in payslip month
+        rent_total = payslip.env['payroll.projection.wizard'].get_calc_per_month_project_line('rent_5ta.payroll_projection_exception_total_r2_3', projection_id, month)
+        result += rent_total
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_r5t_002" model="hr.salary.rule">
+            <field name="name">Dscto. 5ta Categoría Liquidación</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dna_001"/>
+            <field name="code">R5T_002</field>
+            <field name="sequence">110</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('R5T_001') and inputs.dict.get('R5T_001').amount > 0:
+    result = inputs.R5T_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    result = 0
+    global_data = globals()
+    if 'B5T_001' in global_data and global_data['B5T_001'] > 0:
+        result = B5T_001
+    projection_id = payslip.env['payroll.projection'].search([
+        ('employee_id', '=', payslip_id.employee_id.id),
+        ('date_from', '&lt;=', payslip_id.date_start_dt),
+        ('date_to', '>=', payslip_id.date_start_dt),
+    ], limit=1)
+
+    if projection_id:
+        month = payslip_id.date_start[0:2]
+        # Get value of rent 5ta on specific line in payslip month
+        rent_total = payslip.env['payroll.projection.wizard'].get_calc_per_month_project_line('rent_5ta.payroll_projection_exception_total_4', projection_id, month)
+        result += rent_total
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_r5t_005" model="hr.salary.rule">
+            <field name="name">Devolución 5ta Categoría liquidación</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dna_001"/>
+            <field name="code">R5T_005</field>
+            <field name="sequence">22</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('R5T_005') and inputs.dict.get('R5T_005').amount > 0:
+    result = inputs.R5T_005.amount
+else:
+    projection_id = payslip.env['payroll.projection'].search([
+        ('employee_id', '=', employee.id),
+        ('date_from', '&lt;=', payslip.date_start_dt),
+        ('date_to', '>=', payslip.date_start_dt),
+    ], limit=1)
+    result = 0
+    if projection_id:
+        month = payslip.date_start[0:2]
+        # Get value of rent 5ta on specific line in payslip month
+        result = payslip.env['payroll.projection.wizard'].get_calc_per_month_project_line('rent_5ta.payroll_projection_exception_total_5', projection_id, month)
+            </field>
+        </record>
+
+        <!--"hr.payslip.input.type"-->
+        <record id="hr_rule_input_type_b5t_001" model="hr.payslip.input.type">
+            <field name="code">B5T_001</field>
+            <field name="name">Importe 5ta Categoría conceptos extra.</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_rule_input_type_r5t_001" model="hr.payslip.input.type">
+            <field name="code">R5T_001</field>
+            <field name="name">Importe Dscto. 5ta Categoría</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_rule_input_type_r5t_002" model="hr.payslip.input.type">
+            <field name="code">R5T_002</field>
+            <field name="name">Importe Dscto. 5ta Categoría de liquidación</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_rule_input_r5t_005" model="hr.payslip.input.type">
+            <field name="code">R5T_005</field>
+            <field name="name">Importe Devolución 5ta Categoría liquidación</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+    </data>
+</odoo>

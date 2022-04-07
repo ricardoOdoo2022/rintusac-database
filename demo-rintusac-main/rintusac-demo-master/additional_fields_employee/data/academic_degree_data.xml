@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--"academic.degree"-->
+
+        <record id="academic_degree_1" model="academic.degree">
+            <field name="name">SIN EDUCACIÓN FORMAL</field>
+            <field name="code">1</field>
+            <field name="academic_description">SIN EDUCACIÓN FORMAL</field>
+        </record>
+
+        <record id="academic_degree_2" model="academic.degree">
+            <field name="name">ESPECIAL INCOMPLETA</field>
+            <field name="code">2</field>
+            <field name="academic_description">EDUCACIÓN ESPECIAL INCOMPLETA</field>
+        </record>
+        <record id="academic_degree_3" model="academic.degree">
+            <field name="name">ESPECIAL COMPLETA</field>
+            <field name="code">3</field>
+            <field name="academic_description">EDUCACIÓN ESPECIAL COMPLETA</field>
+        </record>
+        <record id="academic_degree_4" model="academic.degree">
+            <field name="name">PRIMARIA INCOMPLETA</field>
+            <field name="code">4</field>
+            <field name="academic_description">EDUCACIÓN PRIMARIA INCOMPLETA</field>
+        </record>
+        <record id="academic_degree_5" model="academic.degree">
+            <field name="name">PRIMARIA COMPLETA</field>
+            <field name="code">5</field>
+            <field name="academic_description">EDUCACIÓN PRIMARIA COMPLETA</field>
+        </record>
+        <record id="academic_degree_6" model="academic.degree">
+            <field name="name">SECUNDARIA INCOMPLETA</field>
+            <field name="code">6</field>
+            <field name="academic_description">EDUCACIÓN SECUNDARIA INCOMPLETA</field>
+        </record>
+        <record id="academic_degree_7" model="academic.degree">
+            <field name="name">SECUNDARIA COMPLETA</field>
+            <field name="code">7</field>
+            <field name="academic_description">EDUCACIÓN SECUNDARIA COMPLETA</field>
+        </record>
+        <record id="academic_degree_8" model="academic.degree">
+            <field name="name">TÉCNICA INCOMPLETA</field>
+            <field name="code">8</field>
+            <field name="academic_description">EDUCACIÓN TÉCNICA INCOMPLETA (2)</field>
+        </record>
+        <record id="academic_degree_9" model="academic.degree">
+            <field name="name">TÉCNICA COMPLETA</field>
+            <field name="code">9</field>
+            <field name="academic_description">EDUCACIÓN TÉCNICA COMPLETA (2)</field>
+        </record>
+        <record id="academic_degree_10" model="academic.degree">
+            <field name="name">SUPERIOR INCOMPLETA (INSTIT. SUPER)</field>
+            <field name="code">10</field>
+            <field name="academic_description">EDUCACIÓN SUPERIOR (INSTITUTO SUPERIOR, ETC) INCOMPLETA (3)</field>
+        </record>
+        <record id="academic_degree_11" model="academic.degree">
+            <field name="name">SUPERIOR COMPLETA (INSTIT SUPER)</field>
+            <field name="code">11</field>
+            <field name="academic_description">EDUCACIÓN SUPERIOR (INSTITUTO SUPERIOR, ETC) COMPLETA (3)</field>
+        </record>
+        <record id="academic_degree_12" model="academic.degree">
+            <field name="name">UNIVERSITARIA INCOMPLETA</field>
+            <field name="code">12</field>
+            <field name="academic_description">EDUCACIÓN UNIVERSITARIA INCOMPLETA (4)</field>
+        </record>
+        <record id="academic_degree_13" model="academic.degree">
+            <field name="name">UNIVERSITARIA COMPLETA</field>
+            <field name="code">13</field>
+            <field name="academic_description">EDUCACIÓN UNIVERSITARIA COMPLETA (4)</field>
+        </record>
+        <record id="academic_degree_14" model="academic.degree">
+            <field name="name">GRADO DE BACHILLER</field>
+            <field name="code">14</field>
+            <field name="academic_description">GRADO DE BACHILLER</field>
+        </record>
+        <record id="academic_degree_15" model="academic.degree">
+            <field name="name">TITULADO</field>
+            <field name="code">15</field>
+            <field name="academic_description">TITULADO</field>
+        </record>
+        <record id="academic_degree_16" model="academic.degree">
+            <field name="name">ESTUD. MAESTRÍA INCOMPLETA</field>
+            <field name="code">16</field>
+            <field name="academic_description">ESTUDIOS DE MAESTRÍA INCOMPLETA</field>
+        </record>
+        <record id="academic_degree_17" model="academic.degree">
+            <field name="name">ESTUD. MAESTRÍA COMPLETA</field>
+            <field name="code">17</field>
+            <field name="academic_description">ESTUDIOS DE MAESTRÍA COMPLETA</field>
+        </record>
+        <record id="academic_degree_18" model="academic.degree">
+            <field name="name">GRADO DE MAESTRÍA</field>
+            <field name="code">18</field>
+            <field name="academic_description">GRADO DE MAESTRÍA</field>
+        </record>
+        <record id="academic_degree_19" model="academic.degree">
+            <field name="name">ESTUD. DOCTORADO INCOMPLETO</field>
+            <field name="code">19</field>
+            <field name="academic_description">ESTUDIOS DE DOCTORADO INCOMPLETO</field>
+        </record>
+        <record id="academic_degree_20" model="academic.degree">
+            <field name="name">ESTUD. DOCTORADO COMPLETO</field>
+            <field name="code">20</field>
+            <field name="academic_description">ESTUDIOS DE DOCTORADO COMPLETO</field>
+        </record>
+        <record id="academic_degree_21" model="academic.degree">
+            <field name="name">GRADO DE DOCTOR</field>
+            <field name="code">21</field>
+            <field name="academic_description">GRADO DE DOCTOR</field>
+        </record>
+
+    </data>
+</odoo>

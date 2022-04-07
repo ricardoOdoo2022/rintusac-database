@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_plame_lines_all,plame.lines,model_plame_lines,,1,1,1,1
+access_plame_files_all,plame.files,model_plame_files,,1,1,1,1

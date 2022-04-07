@@ -1,0 +1,1855 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="hr_salary_rule_ism" model="hr.salary.rule">
+            <field name="name">Indicador semanal</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">ISM</field>
+            <field name="sequence">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Se encarga de indicar cuantas semanas tiene el mes calculado</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+schedule_pay = payslip.struct_id.schedule_pay
+result = 1
+if schedule_pay == payslip.env.ref('payment_conditions.payment_period_3'):
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    ism_line_id = payslip.env['hr.payslip.line'].search([
+        ('code', '=', 'ISM'),
+        ('slip_id', '!=', slip_id),
+        ('date_start', '=', payslip_id.date_start),
+        ('amount', '>', 1)
+    ], limit=1)
+    if not ism_line_id:
+        period_date = payslip_id.date_from
+        last_day = period_date + relativedelta(day=1, months=+1, days=-1)
+        first_day = period_date + relativedelta(day=1)
+        weekday = first_day.isoweekday()
+        dates = []
+        weeks = []
+        while last_day not in dates:
+            start = first_day - timedelta(days=weekday)
+            dates = [start + timedelta(days=d) for d in range(7)]
+            weeks.append([start + timedelta(days=d) for d in range(7)])
+            first_day += timedelta(days=7)
+
+        result = len(weeks)
+        first_week = list(filter(lambda x: x.month == last_day.month, weeks[0]))
+        last_week = list(filter(lambda x: x.month == last_day.month, weeks[len(weeks) - 1]))
+        if len(first_week) &lt; 4:
+            result -= 1
+        if len(last_week) &lt; 4:
+            result -= 1
+    else:
+        result = ism_line_id.amount
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sd_001" model="hr.salary.rule">
+            <field name="name">Salario Diario</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">SD_001</field>
+            <field name="sequence">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="note">Regla salarial para complemento de reglas de nómina mensual y semanal fija.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.wage / 30</field>
+        </record>
+
+        <record id="hr_salary_rule_rb_001" model="hr.salary.rule">
+            <field name="name">Remuneración Básica</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">RB_001</field>
+            <field name="sequence">3</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Regla de remuneración para nómina mensual.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('RBM_001') and inputs.dict.get('RBM_001').amount > 0:
+    result = inputs.RBM_001.amount
+else:
+    result = 0
+    global_data = globals()
+    r1 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+
+    if worked_days.dict:
+        day_code = 0
+        payslip_WORK = []
+        for u in payslip.worked_days_line_ids:
+            if 'WORK' in u.code:
+                payslip_WORK.append(u)
+        for line in payslip_WORK:
+            day_code = day_code + line.number_of_days
+    else:
+        day_code = 0.00
+
+    leave_paid = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.work_entry_type_id.is_leave and not x.unpaid)) if worked_days.dict else 0.00
+    days_n = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code in ['23', '09', '20'])) if worked_days.dict else 0.00
+    r2 = day_code + leave_paid - days_n
+    dpd_001_value = global_data['DPD_001'] if 'DPD_001' in global_data and global_data['DPD_001'] > 0 else 0
+    days_07 = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '07')) if worked_days.dict else 0.00
+
+    ajr_001_value = global_data['AJR_001'] if 'AJR_001' in global_data and global_data['AJR_001'] > 0 else 0
+    ajr_002_value = global_data['AJR_002'] if 'AJR_002' in global_data and global_data['AJR_002'] > 0 else 0
+    result = r1 * r2 - (dpd_001_value * days_07) + ajr_001_value - ajr_002_value
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_rbs_002" model="hr.salary.rule">
+            <field name="name">Remuneración Básica semanal</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">RBS_002</field>
+            <field name="sequence">3</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Regla de remuneración para nómina semanal.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('RBS_002') and inputs.dict.get('RBS_002').amount > 0:
+    result = inputs.RBS_002.amount
+else:
+    global_data = globals()
+    if 'SD_001' in global_data and global_data['SD_001'] > 0:
+        payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+        days_data = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.unpaid)) if worked_days.dict else 0.00
+        result = global_data['SD_001'] * (days_data + global_data.get('BHP_001', 0.0))
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_asf_001" model="hr.salary.rule">
+            <field name="name">Asignación familiar</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">ASF_001</field>
+            <field name="sequence">4</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('ASF_001') and inputs.dict.get('ASF_001').amount > 0:
+    result = inputs.ASF_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    if payslip_id.employee_id.children > 0:
+        rmv_id = payslip.env['various.data.rmv'].search([('is_active', '=', True)], limit=1)
+        result = rmv_id.af_amount / 30 if rmv_id else 0
+        work_entry_27 = payslip.env.ref('holiday_process.hr_work_entry_type_23')
+        days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.work_entry_type_id == work_entry_27)) if worked_days.dict else 0.00
+        result *= (30 - days)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_mov_001" model="hr.salary.rule">
+            <field name="name">Movilidad</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">MOV_001</field>
+            <field name="sequence">31</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('ASF_001') and inputs.dict.get('ASF_001').amount > 0:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    days_data = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.unpaid)) if worked_days.dict else 0.00
+    result = inputs.ASF_001.amount / 30 * days_data
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bsm_001" model="hr.salary.rule">
+            <field name="name">Remuneración de los últimos 12 meses</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bsm_001"/>
+            <field name="code">BSM_001</field>
+            <field name="sequence">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="note">Esta regla realiza la sumatoria de todos los ingresos afectos - Deducción Afectos en un periodo de 12 meses.</field>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('BSM_001') and inputs.dict.get('BSM_001').amount > 0:
+    result = inputs.BSM_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    payslip_line_model = payslip.env['hr.payslip.line']
+
+    # function _get_months_before return a list of months before the payslip period
+    periods = payslip_id._get_months_before(12)
+
+    ina_001 = payslip_line_model.env.ref('basic_rule.hr_salary_rule_category_ina_001')
+    inn_001 = payslip_line_model.env.ref('basic_rule.hr_salary_rule_category_inn_001')
+
+    payslip_lines_ids = payslip_line_model.search([
+        ('employee_id', '=', payslip_id.employee_id.id),
+        ('date_start', 'in', periods),
+        ('category_id', 'in', [ina_001.id, inn_001.id]),
+        ('total', '>', 0)
+    ])
+    result = sum(line.total for line in payslip_lines_ids)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_net" model="hr.salary.rule">
+            <field name="name">Net Salary</field>
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="code">NET</field>
+            <field name="sequence">200</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('NET') and inputs.dict.get('NET').amount > 0:
+    result = inputs.NET.amount
+else:
+    cat_dict = categories.dict
+    cat_ing_001 = cat_dict['ING_001'] if cat_dict.get('ING_001') else 0
+    cat_ing_ded = cat_dict['DED'] if cat_dict.get('DED') else 0
+    result = cat_ing_001 - cat_ing_ded
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_gross" model="hr.salary.rule">
+            <field name="name">Gross</field>
+            <field name="category_id" ref="hr_payroll.GROSS"/>
+            <field name="code">GROSS</field>
+            <field name="sequence">100</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.ING_001</field>
+        </record>
+
+        <record id="hr_salary_rule_basic" model="hr.salary.rule">
+            <field name="name">Basic Salary</field>
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+            <field name="code">BASIC</field>
+            <field name="sequence">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = payslip.paid_amount</field>
+        </record>
+
+        <record id="hr_salary_rule_com_001" model="hr.salary.rule">
+            <field name="name">Comisiones</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">COM_001</field>
+            <field name="sequence">20</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.COM_001.amount if inputs.dict.get('COM_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_inc_001" model="hr.salary.rule">
+            <field name="name">Incentivos</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">INC_001</field>
+            <field name="sequence">21</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.INC_001.amount if inputs.dict.get('INC_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_dt_001" model="hr.salary.rule">
+            <field name="name">Destajo</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">DT_001</field>
+            <field name="sequence">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.DT_001.amount if inputs.dict.get('DT_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_or_001" model="hr.salary.rule">
+            <field name="name">Otras Remuneraciones</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">OR_001</field>
+            <field name="sequence">23</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.OR_001.amount if inputs.dict.get('OR_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_bor_002" model="hr.salary.rule">
+            <field name="name">Otras Remuneraciones de últimos seis (6) meses</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bor_001"/>
+            <field name="code">BOR_002</field>
+            <field name="sequence">4</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BOR_002') and inputs.dict.get('BOR_002').amount > 0:
+    result = inputs.BOR_002.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    payslip_line_model = payslip.env['hr.payslip.line']
+
+    # function _get_months_before return a list of months before the payslip period
+    periods = payslip_id._get_months_before(6)
+
+    employee_id = payslip_id.employee_id
+    payslip_lines = payslip_line_model.search([
+        ('employee_id', '=', employee_id.id),
+        ('date_start', 'in', periods),
+        ('code', '=', 'OR_001'),
+        ('total', '>', 0)
+    ])
+    result = sum(line.total for line in payslip_lines) if len(payslip_lines) >= 3 else 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bco_001" model="hr.salary.rule">
+            <field name="name">Comisiones de últimos seis (6) meses</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bco_001"/>
+            <field name="code">BCO_001</field>
+            <field name="sequence">4</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BCO_001') and inputs.dict.get('BCO_001').amount > 0:
+    result = inputs.BCO_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    payslip_line_model = payslip.env['hr.payslip.line']
+
+    # function _get_months_before return a list of months before the payslip period
+    periods = payslip_id._get_months_before(6)
+
+    employee_id = payslip_id.employee_id
+    payslip_lines = payslip_line_model.search([
+        ('employee_id', '=', employee_id.id),
+        ('date_start', 'in', periods),
+        ('code', '=', 'COM_001'),
+        ('total', '>', 0)
+    ])
+    result = sum(line.total for line in payslip_lines) if len(payslip_lines) >= 3 else 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bin_001" model="hr.salary.rule">
+            <field name="name">Incentivos de últimos seis (6) meses</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bin_001"/>
+            <field name="code">BIN_001</field>
+            <field name="sequence">4</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BIN_001') and inputs.dict.get('BIN_001').amount > 0:
+    result = inputs.BIN_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    payslip_line_model = payslip.env['hr.payslip.line']
+
+    # function _get_months_before return a list of months before the payslip period
+    periods = payslip_id._get_months_before(6)
+
+    employee_id = payslip_id.employee_id
+    payslip_lines = payslip_line_model.search([
+        ('employee_id', '=', employee_id.id),
+        ('date_start', 'in', periods),
+        ('code', '=', 'INC_001'),
+        ('total', '>', 0)
+    ])
+    result = sum(line.total for line in payslip_lines) if len(payslip_lines) >= 3 else 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bpd_001" model="hr.salary.rule">
+            <field name="name">Destajos en últimas cuatro (4) Semanas</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bpd_001"/>
+            <field name="code">BPD_001</field>
+            <field name="sequence">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BPD_001') and inputs.dict.get('BPD_001').amount > 0:
+    result = inputs.BPD_001.amount
+else:
+    payslip_line_model = payslip.env['hr.payslip.line']
+    dt_001 = payslip.env.ref('basic_rule.hr_salary_rule_dt_001')
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and dt_001 not in struct_id.rule_ids:
+        result = 0
+    else:
+        end_date = payslip.date_from - relativedelta(days=1)
+        start_date = payslip.date_from - relativedelta(weeks=4)
+        result = 0
+        payslip_lines = payslip_line_model.search([
+            ('employee_id', '=', payslip.employee_id),
+            ('date_from', '>=', start_date),
+            ('date_to', '&lt;=', end_date),
+            ('total', '>', 0),
+            ('code', '=', dt_001.code)
+        ])
+        if payslip_lines:
+            result = sum(line.total for line in payslip_lines)
+            global_data = globals()
+            if 'DSO_002' in global_data and global_data['DSO_002'] > 0:
+                result += DSO_002
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bo_001" model="hr.salary.rule">
+            <field name="name">Bonificaciones regulares</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">BO_001</field>
+            <field name="sequence">22</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.BO_001.amount if inputs.dict.get('BO_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_hed_100" model="hr.salary.rule">
+            <field name="name">Extra Destajo</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">HED_100</field>
+            <field name="sequence">8</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.HED_100.amount if inputs.dict.get('HED_100') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_bed_002" model="hr.salary.rule">
+            <field name="name">Extra Destajo de últimos seis (6) meses</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bed_001"/>
+            <field name="code">BED_002</field>
+            <field name="sequence">4</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BED_002') and inputs.dict.get('BED_002').amount > 0:
+    result = inputs.BED_002.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    payslip_line_model = payslip.env['hr.payslip.line']
+
+    # function _get_months_before return a list of months before the payslip period
+    periods = payslip_id._get_months_before(6)
+
+    employee_id = payslip_id.employee_id
+    payslip_lines = payslip_line_model.search([
+        ('employee_id', '=', employee_id.id),
+        ('date_start', 'in', periods),
+        ('code', '=', 'HED_100'),
+        ('total', '>', 0)
+    ])
+    result = sum(line.total for line in payslip_lines) if len(payslip_lines) >= 3 else 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bcb_001" model="hr.salary.rule">
+            <field name="name">Bonificaciones de últimos seis (6) meses</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bcb_001"/>
+            <field name="code">BCB_001</field>
+            <field name="sequence">4</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BCB_001') and inputs.dict.get('BCB_001').amount > 0:
+    result = inputs.BCB_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    payslip_line_model = payslip.env['hr.payslip.line']
+
+    # function _get_months_before return a list of months before the payslip period
+    periods = payslip_id._get_months_before(6)
+
+    employee_id = payslip_id.employee_id
+    payslip_lines = payslip_line_model.search([
+        ('employee_id', '=', employee_id.id),
+        ('date_start', 'in', periods),
+        ('code', '=', 'BO_001'),
+        ('total', '>', 0)
+    ])
+    result = sum(line.total for line in payslip_lines) if len(payslip_lines) >= 3 else 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bsp_001" model="hr.salary.rule">
+            <field name="name">Base de cálculo Sistema de Pensiones</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_sp_001"/>
+            <field name="code">BSP_001</field>
+            <field name="sequence">102</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+global_data = globals()
+if 'BSP_002' in global_data and global_data['BSP_002'] > 0:
+    result += global_data['BSP_002']
+if 'BSP_003' in global_data and global_data['BSP_003'] > 0:
+    result += global_data['BSP_003']
+cat_dict = categories.dict
+if cat_dict.get('DA_001'):
+    result -= cat_dict['DA_001']
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bsp_002" model="hr.salary.rule">
+            <field name="name">Base Sistema de Pensiones</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_sp_001"/>
+            <field name="code">BSP_002</field>
+            <field name="sequence">100</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.INA_001 if categories.dict.get('INA_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_bsp_003" model="hr.salary.rule">
+            <field name="name">Base Sistema de Pensiones Privado</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_spp_001"/>
+            <field name="code">BSP_003</field>
+            <field name="sequence">101</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.AFP_001 if categories.dict.get('AFP_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_csp_001" model="hr.salary.rule">
+            <field name="name">SPP - Comisión porcentual</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dat_001"/>
+            <field name="code">CSP_001</field>
+            <field name="sequence">104</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = 0
+if payslip_id.employee_id.pension_system_id:
+    date_start = payslip_id.date_start
+    pension_id = []
+    for rec in payslip_id.employee_id.pension_system_id.comis_pension_ids:
+        start_y = int(rec.date_from.strftime('%Y'))
+        start_m = int(rec.date_from.strftime('%m'))
+        end_y = int(rec.date_to.strftime('%Y'))
+        end_m = int(rec.date_to.strftime('%m'))
+        periods = payslip_id._get_periods(start_m, start_y, end_m, end_y)
+        if date_start in periods:
+            pension_id.append(rec)
+    if pension_id and payslip_id.employee_id.commission_type:
+        if payslip_id.employee_id.commission_type == 'amount':
+            value = pension_id[0].mixed_flow
+        else:
+            value = pension_id[0].flow
+        global_data = globals()
+        rule_value = global_data['BSP_001'] if 'BSP_001' in global_data and global_data['BSP_001'] > 0 else 0
+        result = rule_value * (value / 100)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_psp_002" model="hr.salary.rule">
+            <field name="name">SPP - Prima de seguro</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dat_001"/>
+            <field name="code">PSP_002</field>
+            <field name="sequence">105</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = 0
+if payslip_id.employee_id.pension_system_id:
+    date_start = payslip_id.date_start
+    pension_id = []
+    for rec in payslip_id.employee_id.pension_system_id.comis_pension_ids:
+        start_y = int(rec.date_from.strftime('%Y'))
+        start_m = int(rec.date_from.strftime('%m'))
+        end_y = int(rec.date_to.strftime('%Y'))
+        end_m = int(rec.date_to.strftime('%m'))
+        periods = payslip_id._get_periods(start_m, start_y, end_m, end_y)
+        if date_start in periods:
+            pension_id.append(rec)
+    if pension_id:
+        value = 0
+        afp_ids = payslip.env['tope.afp'].search([])
+        top_ids = []
+        for rec in afp_ids:
+            start_y = int(rec.date_from.strftime('%Y'))
+            start_m = int(rec.date_from.strftime('%m'))
+            end_y = int(rec.date_to.strftime('%Y'))
+            end_m = int(rec.date_to.strftime('%m'))
+            periods = payslip_id._get_periods(start_m, start_y, end_m, end_y)
+            if date_start in periods:
+                top_ids.append(rec)
+        global_data = globals()
+        rule_value = global_data['BSP_001'] if 'BSP_001' in global_data and global_data['BSP_001'] > 0 else 0
+        if top_ids:
+            top = top_ids[0].top
+            if rule_value > top:
+                rule_value = top
+            else:
+                rule_value = rule_value
+            value = pension_id[0].bonus
+        result = rule_value * (value / 100)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_asp_001" model="hr.salary.rule">
+            <field name="name">SPP - Aportación Obligatoria</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dat_001"/>
+            <field name="code">ASP_001</field>
+            <field name="sequence">106</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = 0
+if payslip_id.employee_id.pension_system_id:
+    date_start = payslip_id.date_start
+    pension_id = []
+    for rec in payslip_id.employee_id.pension_system_id.comis_pension_ids:
+        start_y = int(rec.date_from.strftime('%Y'))
+        start_m = int(rec.date_from.strftime('%m'))
+        end_y = int(rec.date_to.strftime('%Y'))
+        end_m = int(rec.date_to.strftime('%m'))
+        periods = payslip_id._get_periods(start_m, start_y, end_m, end_y)
+        if date_start in periods:
+            pension_id.append(rec)
+    if pension_id:
+        value = pension_id[0].fund
+        global_data = globals()
+        rule_value = global_data['BSP_001'] if 'BSP_001' in global_data and global_data['BSP_001'] > 0 else 0
+        result = rule_value * (value / 100)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_onp_001" model="hr.salary.rule">
+            <field name="name">Sistema Nacional de pensiones - D.L.19990</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dat_001"/>
+            <field name="code">ONP_001</field>
+            <field name="sequence">107</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = 0
+if payslip_id.employee_id.pension_system_id and payslip_id.employee_id.pension_system_id.code == '02':
+    global_data = globals()
+    bsp_001 = global_data['BSP_001'] if 'BSP_001' in global_data and global_data['BSP_001'] > 0 else 0
+    bsp_003 = global_data['BSP_003'] if 'BSP_003' in global_data and global_data['BSP_003'] > 0 else 0
+    result = (bsp_001 - bsp_003) * 0.13
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_dpd_001" model="hr.salary.rule">
+            <field name="name">Descuento proporcional día de descanso</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">DPD_001</field>
+            <field name="sequence">2</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="note">Este concepto pertenece a la nómina mensual.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+global_data = globals()
+sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+result = sd_001 / 30
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_dso_001" model="hr.salary.rule">
+            <field name="name">Dominical Obligatorio</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">DSO_001</field>
+            <field name="sequence">5</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Regla salarial para semanal fijo.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('DSO_001') and inputs.dict.get('DSO_001').amount > 0:
+    result = inputs.DSO_001.amount
+else:
+    calendar_id = employee.resource_calendar_id
+    weekdays = list(set(map(lambda x: x['dayofweek'], calendar_id.attendance_ids)))
+    global_data = globals()
+    dsm_001 = global_data['DSM_001'] if 'DSM_001' in global_data and global_data['DSM_001'] > 0 else 0
+    rbs_002 = global_data['RBS_002'] if 'RBS_002' in global_data and global_data['RBS_002'] > 0 else 0
+    result = (rbs_002 + dsm_001) / len(weekdays)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_dso_002" model="hr.salary.rule">
+            <field name="name">Dominical Destajo</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">DSO_002</field>
+            <field name="sequence">5</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Regla salarial para destajeros.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('DSO_002') and inputs.dict.get('DSO_002').amount > 0:
+    result = inputs.DSO_002.amount
+else:
+    calendar_id = employee.resource_calendar_id
+    weekdays = list(set(map(lambda x: x['dayofweek'], calendar_id.attendance_ids)))
+    result = 0
+    global_data = globals()
+    dsm_001 = global_data['DSM_001'] if 'DSM_001' in global_data and global_data['DSM_001'] > 0 else 0
+    dt_001 = global_data['DT_001'] if 'DT_001' in global_data and global_data['DT_001'] > 0 else 0
+    result = (dt_001 + dsm_001) / len(weekdays)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_val_001" model="hr.salary.rule">
+            <field name="name">Vale alimentos ley 28051</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">VAL_001</field>
+            <field name="sequence">50</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.VAL_001.amount if inputs.dict.get('VAL_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_tar_001" model="hr.salary.rule">
+            <field name="name">Tardanzas</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_da_001"/>
+            <field name="code">TAR_001</field>
+            <field name="sequence">100</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Esta regla calcula datos en minutos.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+tar_001_inputs = inputs.TAR_001.amount if inputs.dict.get('TAR_001') else 0
+hours_per_day = contract.resource_calendar_id.hours_per_day or 0.0
+global_data = globals()
+sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+if tar_001_inputs != 0 and hours_per_day:
+    result = (sd_001 / hours_per_day) / 60 * tar_001_inputs
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sen_001" model="hr.salary.rule">
+            <field name="name">SENATI</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">SEN_001</field>
+            <field name="sequence">301</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('SEN_001') and inputs.dict.get('SEN_001').amount > 0:
+    result = inputs.SEN_001.amount
+else:
+    ina_001 = payslip.env.ref('basic_rule.hr_salary_rule_category_ina_001')
+    struct_rules = payslip.struct_id.rule_ids
+    list_cat = list(set(map(lambda x: x.category_id.code if x.category_id == ina_001 else False, struct_rules)))
+    result = 0
+    cat_dict = categories.dict
+    for cat in list_cat:
+        if cat_dict.get(cat):
+            result += cat_dict[cat]
+    result *= 0.0075
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sct_002" model="hr.salary.rule">
+            <field name="name">SCTR Pensión</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">SCT_002</field>
+            <field name="sequence">302</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('SCT_002') and inputs.dict.get('SCT_002').amount > 0:
+    result = inputs.SCT_002.amount
+else:
+    employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+    result = 0
+    sctr_id = employee_id.sctr_id
+    if sctr_id and employee_id.pension_sctr:
+        cat_dict = categories.dict
+        if sctr_id.pension_percent != 0.00:
+            cat_ina_001 = cat_dict['INA_001'] if cat_dict.get('INA_001') else 0
+            cat_afp_001 = cat_dict['AFP_001'] if cat_dict.get('AFP_001') else 0
+            result = (cat_ina_001 + cat_afp_001) * (sctr_id.pension_percent / 100)
+        else:
+            result = sctr_id.pension_amount
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sct_003" model="hr.salary.rule">
+            <field name="name">SCTR Salud</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">SCT_003</field>
+            <field name="sequence">302</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('SCT_003') and inputs.dict.get('SCT_003').amount > 0:
+    result = inputs.SCT_003.amount
+else:
+    employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+    result = 0
+    sctr_id = employee_id.sctr_id
+    if sctr_id and employee_id.pension_sctr:
+        cat_dict = categories.dict
+        if sctr_id.health_percent != 0.00:
+            cat_ina_001 = cat_dict['INA_001'] if cat_dict.get('INA_001') else 0
+            cat_afp_001 = cat_dict['AFP_001'] if cat_dict.get('AFP_001') else 0
+            result = (cat_ina_001 + cat_afp_001) * (sctr_id.health_percent / 100)
+        else:
+            result = sctr_id.health_amount
+            </field>
+        </record>
+
+
+        <record id="hr_salary_rule_mat_001" model="hr.salary.rule">
+            <field name="name">Movilidad asignada por trabajador</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">MAT_001</field>
+            <field name="sequence">30</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.MAT_001.amount if inputs.dict.get('MAT_001') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_bsm_002" model="hr.salary.rule">
+            <field name="name">Prom. diario subsidio por maternidad</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bsm_001"/>
+            <field name="code">BSM_002</field>
+            <field name="sequence">2</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="note">Descripción: en la entrada se debe indicar días.</field>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+global_data = globals()
+bsm_001 = global_data['BSM_001'] if 'BSM_001' in global_data and global_data['BSM_001'] > 0 else 0
+input_bsm_002 = inputs.BSM_002.amount if inputs.dict.get('BSM_002') else 0
+if input_bsm_002 == 0:
+    result = 0
+else:
+    result = bsm_001 / input_bsm_002
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bsm_003" model="hr.salary.rule">
+            <field name="name">Subsidio por maternidad</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_afp_001"/>
+            <field name="code">BSM_003</field>
+            <field name="sequence">3</field>
+            <field name="appears_on_payslip">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="note">Esta regla calcula el Prom. diario para el subsidio por maternidad por los días efectivos del mes.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BSM_003') and inputs.dict.get('BSM_003').amount > 0:
+    result = inputs.BSM_003.amount
+else:
+    global_data = globals()
+    bsm_002 = global_data['BSM_002'] if 'BSM_002' in global_data and global_data['BSM_002'] > 0 else 0
+    absence_id = payslip.env.ref('automatic_leave_type.hr_leave_type_22', False)
+    holiday_days = 0
+    if worked_days.dict:
+        for line in payslip.worked_days_line_ids:
+            leave_type_id = line.work_entry_type_id.leave_type_ids[0] if line.work_entry_type_id.leave_type_ids else False
+            if leave_type_id and leave_type_id == absence_id:
+                holiday_days += line.number_of_days
+    result = bsm_002 * holiday_days
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_esa_001" model="hr.salary.rule">
+            <field name="name">RCSS EsSalud</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">ESA_001</field>
+            <field name="sequence">300</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('ESA_001') and inputs.dict.get('ESA_001').amount > 0:
+    result = inputs.ESA_001.amount
+else:
+    employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+    result = 0
+    if employee_id.health_regime_id and employee_id.health_regime_id.code == '00':
+        if worked_days.dict:
+            day_007_day = sum(line.number_of_days for line in payslip.worked_days_line_ids.filtered(lambda x: x.code == '07'))
+        else:
+            day_007_day = 0.0
+        cat_dict = categories.dict
+        cat_ina_001 = cat_dict['INA_001'] if cat_dict.get('INA_001') else 0
+        cat_da_001 = cat_dict['DA_001'] if cat_dict.get('DA_001') else 0
+        result1 = ((cat_ina_001 - cat_da_001)  / 30 * (30 - day_007_day)) * 0.09
+
+        rmv_id = payslip.env['various.data.rmv'].search([('is_active', '=', True)], limit=1)
+        result2 = (0 if not rmv_id else rmv_id.rmv_amount) * 0.09
+        result = result1 if result1 >= result2 else result2
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sis_001" model="hr.salary.rule">
+            <field name="name">SIS</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">SIS_001</field>
+            <field name="sequence">300</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('SIS_001') and inputs.dict.get('SIS_001').amount > 0:
+    result = inputs.SIS_001.amount
+else:
+    sis_id = payslip.env['various.data.sis'].search([('is_active', '=', True)], limit=1)
+    result = 0 if not sis_id else sis_id.sis_amount
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_djf_001" model="hr.salary.rule">
+            <field name="name">Dscto Judicial fijo</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dna_001"/>
+            <field name="code">DJF_001</field>
+            <field name="sequence">112</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('DJF_001') and inputs.dict.get('DJF_001').amount > 0:
+    result = inputs.DJF_001.amount
+else:
+    employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+    holiday_days = sum(line.number_of_days for line in payslip.worked_days_line_ids) if worked_days.dict else 0
+    result = employee_id.judicial_discount or 0.0 / 30 * holiday_days
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_djp_002" model="hr.salary.rule">
+            <field name="name">Dscto Judicial porcentaje</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dna_001"/>
+            <field name="code">DJP_002</field>
+            <field name="sequence">113</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('DJP_002') and inputs.dict.get('DJP_002').amount > 0:
+    result = inputs.DJP_002.amount
+else:
+    employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+    result = 0
+    ing_001_cat = payslip.env.ref('basic_rule.hr_salary_rule_category_ing_001')
+    cat_dict = categories.dict
+    if cat_dict.get(ing_001_cat.code):
+        result += cat_dict[ing_001_cat.code]
+    result *= employee_id.judicial_discount_percent or 0.0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sdv_001" model="hr.salary.rule">
+            <field name="name">Seguro de vida</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">SDV_001</field>
+            <field name="sequence">303</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Esta regla salarial aplica solo para los trabajadores que cumplen 4 años en la empresa.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('SDV_001') and inputs.dict.get('SDV_001').amount > 0:
+    result = inputs.SDV_001.amount
+else:
+    employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+    result = 0
+    if employee_id.life_insurance and employee_id.life_insurance_id:
+        days = sum(line.number_of_days for line in payslip.worked_days_line_ids) if worked_days.dict else 0.0
+        life_insurance_id = employee_id.life_insurance_id
+
+        start_y = int(life_insurance_id.start_date.strftime('%Y'))
+        start_m = int(life_insurance_id.start_date.strftime('%m'))
+        end_y = int(life_insurance_id.end_date.strftime('%Y'))
+        end_m = int(life_insurance_id.end_date.strftime('%m'))
+        periods = payslip.env['hr.payslip']._get_periods(start_m, start_y, end_m, end_y)
+
+        if payslip.date_start in periods:
+            if life_insurance_id.amount != 0:
+                result = life_insurance_id.amount
+            else:
+                ina_001_cat = payslip.env.ref('basic_rule.hr_salary_rule_category_ina_001')
+                struct_rules = payslip.struct_id.rule_ids
+                list_cat = list(set(map(lambda x: x.category_id.code if x.category_id == ina_001_cat else False, struct_rules)))
+                cat_dict = categories.dict
+                ina_001_amount = cat_dict[ina_001_cat.code] if cat_dict.get(ina_001_cat.code) else 0
+                result = (life_insurance_id.rate or 0.0) * ina_001_amount
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bo_002" model="hr.salary.rule">
+            <field name="name">Bonificaciones por productividad u otros conceptos</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">BO_002</field>
+            <field name="sequence">22</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.BO_002.amount if inputs.dict.get('BO_002') else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_net_003" model="hr.salary.rule">
+            <field name="name">Neto liquidación por pagar</field>
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="code">NET_003</field>
+            <field name="sequence">200</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="note">Suma los importe con categoría Padre “Ingresos” y le resta los importes con categoría Padre “Deducciones.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('NET_003') and inputs.dict.get('NET_003').amount > 0:
+    result = inputs.NET_003.amount
+else:
+    cat_dict = categories.dict
+    cat_ing_001 = cat_dict['ING_001'] if cat_dict.get('ING_001') else 0
+    cat_ing_ded = cat_dict['DED'] if cat_dict.get('DED') else 0
+    result = cat_ing_001 - cat_ing_ded
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_ind_001" model="hr.salary.rule">
+            <field name="name">Indemnización despido arbitrario</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="sequence">99</field>
+            <field name="code">IND_001</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="note">Toma el monto a pagar por vacaciones, ya que se paga una indemnización por vacaciones no gozadas.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+inp = 0
+if inputs.dict.get('IND_001') and inputs.dict.get('IND_001').amount > 0:
+    inp = inputs.IND_001.amount
+value2 = 0
+employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+if employee_id and employee_id.children > 0:
+    rmv_id = payslip.env['various.data.rmv'].search([('is_active', '=', True)], limit=1)
+    value2 = rmv_id.af_amount if rmv_id else 0
+result = (contract.wage + value2) * 1.5 * inp
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pnq_001" model="hr.salary.rule">
+            <field name="name">Proyección nómina de adelanto</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bas_001"/>
+            <field name="code">PNQ_001</field>
+            <field name="sequence">500</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="note">Suma los códigos de los conceptos fijos que se consideran para el calculo de nómina quincenal de adelanto.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+rules_dict = rules.dict
+for rule in rules_dict:
+    if rules_dict[rule].apply_advance_payroll:
+        try:
+            exec("result += {}".format(rules_dict[rule].code))
+        except:
+            result += 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bnq_001" model="hr.salary.rule">
+            <field name="name">Base nómina de adelanto</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bas_001"/>
+            <field name="sequence">1</field>
+            <field name="code">BNQ_001</field>
+            <field name="appears_on_payslip">0</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="note">Trae el importe proyectado en la regla “proyección nómina de adelanto” del mes anterior el cual suma las reglas que tienen true
+                en el booleano “¿Aplica nómina de adelanto?”, si no encuentra ese importe, calcula el Básico.
+            </field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BNQ_001') and inputs.dict.get('BNQ_001').amount > 0:
+    result = inputs.BNQ_001.amount
+else:
+    month = int(payslip.month)
+    year = int(payslip.year)
+    last_m, last_y = payslip.env['hr.payslip']._get_month(year, month, 1)
+    last_date_start = '{}/{}'.format("{:02d}".format(last_m), last_y)
+    payslip_line = payslip.env['hr.payslip.line'].search([('code', '=', 'PNQ_001'),('date_start', '=', last_date_start),('employee_id', '=', payslip.employee_id)])
+    result = sum(line.amount for line in payslip_line)
+    if result == 0:
+        result = contract.wage
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_nqa_001" model="hr.salary.rule">
+            <field name="name">Nómina Quincenal de Adelanto</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">NQA_001</field>
+            <field name="sequence">2</field>
+            <field name="note">Toma de la regla Base nómina de adelanto y lo multiplica por el porcentaje seteado en el hr.contract del trabajador</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+global_data = globals()
+bnq_001 = global_data['BNQ_001'] if 'BNQ_001' in global_data and global_data['BNQ_001'] > 0 else 0
+nqa_001_input = inputs.NQA_001.amount if inputs.dict.get('NQA_001') and inputs.dict.get('NQA_001').amount > 0 else 0
+result = bnq_001 * nqa_001_input
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_dnq_001" model="hr.salary.rule">
+            <field name="name">Desc. Nómina adelanto</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dna_001"/>
+            <field name="sequence">190</field>
+            <field name="code">DNQ_001</field>
+            <field name="note">Toma el importe pagado al trabajador en el mismo mes como Nómina Quincenal de adelanto, para el descuento en la nómina de fin de mes</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('DNQ_001') and inputs.dict.get('DNQ_001').amount > 0:
+    result = inputs.DNQ_001.amount
+else:
+    date_start = payslip.date_start
+    payslip_lines = payslip.env['hr.payslip.line'].search([('code', '=', 'NQA_001'),('date_start', '=', date_start),('employee_id', '=', payslip.employee_id)])
+    result = sum(line.amount for line in payslip_lines)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_fer_001" model="hr.salary.rule">
+            <field name="name">Feriado</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="sequence">4</field>
+            <field name="code">FER_001</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('FER_001') and inputs.dict.get('FER_001').amount > 0:
+    result = inputs.FER_001.amount
+else:
+    result = 0
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001') and inputs.dict.get('FER_002'):
+        result = inputs.FER_002.amount
+    else:
+        global_data = globals()
+        sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+        days_worked = sum(line.number_of_days for line in payslip.worked_days_line_ids.filtered(lambda x: x.code == 'GLOBAL')) if worked_days.dict else 0.0
+        result = sd_001 * days_worked
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sep_001" model="hr.salary.rule">
+            <field name="name">Subvención económica practicantes</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">SEP_001</field>
+            <field name="sequence">3</field>
+            <field name="appears_on_payslip">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="note">Remuneración para practicantes</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('SEP_001') and inputs.dict.get('SEP_001').amount > 0:
+    result = inputs.SEP_001.amount
+else:
+    result = 0
+    if contract and contract.is_practitioner:
+        global_data = globals()
+        sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+        dpd_001 = global_data['DPD_001'] if 'DPD_001' in global_data and global_data['DPD_001'] > 0 else 0
+        payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+        days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code in ['DDO', 'WORK100'] or not x.unpaid)) if worked_days.dict else 0.00
+        absence_day = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '07')) if worked_days.dict else 0.00
+        result = sd_001 * days - dpd_001 * absence_day
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sep_002" model="hr.salary.rule">
+            <field name="name">Media subvención económica</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">SEP_002</field>
+            <field name="sequence">3</field>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Los practicantes tienen derecho a media subvención por cada 6 meses de labores.</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('SEP_002') and inputs.dict.get('SEP_002').amount > 0:
+    result = inputs.SEP_002.amount
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bsm_004" model="hr.salary.rule">
+            <field name="name">Prom. diario subsidio incapacidad temporal</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bsm_001"/>
+            <field name="code">BSM_004</field>
+            <field name="appears_on_payslip">0</field>
+            <field name="sequence">2</field>
+            <field name="note">En la entrada se debe indicar días.</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('BSM_004') and inputs.dict.get('BSM_004').amount > 0:
+    global_data = globals()
+    bsm_001 = global_data['BSM_001'] if 'BSM_001' in global_data and global_data['BSM_001'] > 0 else 0
+    bsm_004_input = inputs.BSM_004.amount if inputs.dict.get('BSM_004') and inputs.dict.get('BSM_004').amount > 0 else 0
+    absence_days = sum(line.number_of_days for line in payslip.worked_days_line_ids.filtered(lambda x: x.code == '21')) if worked_days.dict else 0.0
+    result = bsm_001 / bsm_004_input * absence_days
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bsm_005" model="hr.salary.rule">
+            <field name="name">Subsidio incapacidad temporal</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_afp_001"/>
+            <field name="code">BSM_005</field>
+            <field name="sequence">3</field>
+            <field name="note">Esta regla calcula el Prom. diario para el subsidio por enfermedad por los días efectivos del mes.</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('BSM_005') and inputs.dict.get('BSM_005').amount > 0:
+    result = inputs.BSM_005.amount
+else:
+    global_data = globals()
+    bsm_004 = global_data['BSM_004'] if 'BSM_004' in global_data and global_data['BSM_004'] > 0 else 0
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    absence_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '21')) if worked_days.dict else 0.00
+    result = bsm_004 * absence_days
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_acs_001" model="hr.salary.rule">
+            <field name="name">Acum. de Salud</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">ACS_001</field>
+            <field name="sequence">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('ACS_001') and inputs.dict.get('ACS_001').amount > 0:
+    result = inputs.ACS_001.amount
+else:
+    lines = payslip.env['hr.payslip.line'].search([('date_start', '=', payslip.date_start), ('code', 'in', ['ESA_001', 'SIS_001'])])
+    result = sum(line.amount for line in lines)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_sis_002" model="hr.salary.rule">
+            <field name="name">SIS lbs</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">SIS_002</field>
+            <field name="sequence">300</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('SIS_002') and inputs.dict.get('SIS_002').amount > 0:
+    result = inputs.SIS_002.amount
+else:
+    result = 0
+    employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+    if employee_id.health_regime_id and employee_id.health_regime_id.code == '21':
+        sis_id = payslip.env['various.data.sis'].search([('is_active', '=', True)], limit=1)
+        sis_amount = 0 if not sis_id else sis_id.sis_amount
+        if ACS_001 > sis_amount:
+            result = sis_amount
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_dsm_001" model="hr.salary.rule">
+            <field name="name">Descanso Médico</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">DSM_001</field>
+            <field name="sequence">3</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="note">Regla de remuneración por descanso médico hasta 20 como indica la ley.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('DSM_001') and inputs.dict.get('DSM_001').amount > 0:
+    result = inputs.DSM_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        if inputs.dict.get('DSM_002'):
+            result = inputs.DSM_002.amount
+    else:
+        global_data = globals()
+        sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+        days_data = sd_001 * sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '20')) if worked_days.dict else 0.00
+        result = sd_001 * days_data
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_esa_105" model="hr.salary.rule">
+            <field name="name">Base de cálculo sistema de Salud</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">ESA_105</field>
+            <field name="sequence">303</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+global_data = globals()
+esa_103 = global_data['ESA_103'] if 'ESA_103' in global_data and global_data['ESA_103'] > 0 else 0
+esa_104 = global_data['ESA_104'] if 'ESA_104' in global_data and global_data['ESA_104'] > 0 else 0
+result = esa_103 - esa_104
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_esa_100" model="hr.salary.rule">
+            <field name="name">Base de EsSalud</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">ESA_100</field>
+            <field name="sequence">300</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('ESA_100') and inputs.dict.get('ESA_100').amount > 0:
+    result = inputs.ESA_100.amount
+else:
+    result = 0
+    if employee.health_regime_id and employee.health_regime_id.code == '00':
+        cat_dict = categories.dict
+        cat_ina_001 = cat_dict['INA_001'] if cat_dict.get('INA_001') else 0
+        cat_da_001 = cat_dict['DA_001'] if cat_dict.get('DA_001') else 0
+        result = cat_ina_001 - cat_da_001
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_esa_101" model="hr.salary.rule">
+            <field name="name">Acum. de EsSalud</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">ESA_101</field>
+            <field name="sequence">301</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('ESA_101') and inputs.dict.get('ESA_101').amount > 0:
+    result = inputs.ESA_101.amount
+else:
+    lines = payslip.env['hr.payslip.line'].search([('code', '=', 'ESA_100'),('slip_id', '!=', payslip.id),('date_start', '=', payslip.date_start),('employee_id','=', employee.id)])
+    result = sum(line.amount for line in lines)
+    global_data = globals()
+    esa_100 = global_data['ESA_100'] if 'ESA_100' in global_data and global_data['ESA_100'] > 0 else 0
+    result += esa_100
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_esa_103" model="hr.salary.rule">
+            <field name="name">Base de importe cálculo EsSalud global</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">ESA_103</field>
+            <field name="sequence">302</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+rmv_id = payslip.env['various.data.rmv'].search([('is_active', '=', True)], limit=1)
+val1 = rmv_id.rmv_amount if rmv_id else 0
+global_data = globals()
+esa_100 = global_data['ESA_100'] if 'ESA_100' in global_data and global_data['ESA_100'] > 0 else 0
+esa_101 = global_data['ESA_101'] if 'ESA_101' in global_data and global_data['ESA_101'] > 0 else 0
+result = val1 if val1 > esa_101 else esa_100
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_esa_104" model="hr.salary.rule">
+            <field name="name">Ajuste periodo ant. de EsSalud</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">ESA_104</field>
+            <field name="sequence">302</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_python_compute">
+lines = payslip.env['hr.payslip.line'].search([('code', 'in', ['ESA_100', 'ESA_103']),('slip_id', '!=', slip_id),('date_start', '=', payslip.date_start), ('employee_id','=', payslip.employee_id)])
+val1 = sum(line.amount for line in lines.filtered(lambda x: x.code == 'ESA_100'))
+val2 = sum(line.amount for line in lines.filtered(lambda x: x.code == 'ESA_103'))
+result = abs(val1 - val2)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_esa_106" model="hr.salary.rule">
+            <field name="name">EsSalud LBS</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">ESA_106</field>
+            <field name="sequence">304</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+month = int(payslip.month)
+year = int(payslip.year)
+last_m, last_y = payslip.env['hr.payslip.line']._get_month(year, month, 1)
+last_date_start = '{}/{}'.format("{:02d}".format(last_m), last_y)
+lines = payslip.env['hr.payslip.line'].search([('code', '=', 'SPP'),('date_start', '=', last_date_start),('employee_id', '=', payslip.employee_id)])
+global_data = globals()
+esa_105 = global_data['ESA_105'] if 'ESA_105' in global_data and global_data['ESA_105'] > 0 else 0
+if lines:
+    result = esa_105 * 0.0675
+else:
+    result = esa_105 * 0.09
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_esa_107" model="hr.salary.rule">
+            <field name="name">EsSalud</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">ESA_107</field>
+            <field name="sequence">305</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+month = int(payslip.month)
+year = int(payslip.year)
+last_m, last_y = payslip.env['hr.payslip.line']._get_month(year, month, 1)
+last_date_start = '{}/{}'.format("{:02d}".format(last_m), last_y)
+lines = payslip.env['hr.payslip.line'].search([('code', '=', 'SPP'),('date_start', '=', last_date_start),('employee_id', '=', payslip.employee_id)])
+work_hours = sum(line.number_of_days for line in payslip.worked_days_line_ids) if worked_days.dict else 0.0
+global_data = globals()
+esa_105 = global_data['ESA_105'] if 'ESA_105' in global_data and global_data['ESA_105'] > 0 else 0
+if lines:
+    result = esa_105 / 30 * work_hours * 0.0675
+else:
+    result = esa_105 / 30 * work_hours * 0.09
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_ajr_001" model="hr.salary.rule">
+            <field name="name">Ajuste remuneración febrero</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">AJR_001</field>
+            <field name="sequence">2</field>
+            <field name="appears_on_payslip">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('AJR_001') and inputs.dict.get('AJR_001').amount > 0:
+    result = inputs.AJR_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids)
+    if days == 28 or days == 29:
+        val_date = payslip_id.date_to - payslip.date_from
+        if payslip.month == '02':
+            val_date = val_date.days + 1
+            sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+            if val_date == 28:
+                result = 2 * sd_001
+            elif val_date == 29:
+                result = sd_001
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_ajr_002" model="hr.salary.rule">
+            <field name="name">Ajuste remuneración meses 31</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">AJR_002</field>
+            <field name="sequence">2</field>
+            <field name="appears_on_payslip">1</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('AJR_002') and inputs.dict.get('AJR_002').amount > 0:
+    result = inputs.AJR_002.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids)
+    if days == 31:
+        if payslip.month in ['01', '03', '05', '07', '08', '10', '12']:
+            sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+            result = sd_001
+        else:
+            result = 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bhp_001" model="hr.salary.rule">
+            <field name="name">Base Horas de Permiso</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">BHP_001</field>
+            <field name="sequence">2</field>
+            <field name="appears_on_payslip">0</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('HRP_001') and inputs.dict.get('HRP_001').amount > 0:
+    global_data = globals()
+    sd_001 = global_data['SD_001'] if 'ESA_105' in global_data and global_data['SD_001'] > 0 else 0
+    result = sd_001 / 8 * inputs.HRP_001.amount
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_bhp_002" model="hr.salary.rule">
+            <field name="name">Horas de Permiso desc. en Asig. familiar</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+            <field name="code">BHP_002</field>
+            <field name="sequence">2</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+employee = payslip.env['hr.employee'].browse(payslip.employee_id)
+if employee and employee.children > 0:
+    rmv_id = payslip.env['various.data.rmv'].search([('is_active', '=', True)], limit=1)
+    result = rmv_id.af_amount / 30 / 8 if rmv_id else 0
+    if inputs.dict.get('HRP_001') and inputs.dict.get('HRP_001').amount > 0:
+        result *= inputs.HRP_001.amount
+    else:
+        result = 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_ddi_002" model="hr.salary.rule">
+            <field name="name">Dscto días de inasistencia</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_bas_001"/>
+            <field name="code">DDI_002</field>
+            <field name="sequence">52</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+global_data = globals()
+sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+leave_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.work_entry_type_id.unpaid and x.work_entry_type_id.is_leave)) if worked_days.dict else 0.00
+result = sd_001 * leave_days
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pro_vac" model="hr.salary.rule">
+            <field name="name">Provisión de vacaciones</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">PRO_VAC</field>
+            <field name="sequence">1000</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+employee_id = payslip.env['hr.employee'].browse(payslip.employee_id)
+cat_dict = categories.dict
+cat_ina_001 = cat_dict['INA_001'] if cat_dict.get('INA_001') else 0
+r1 = cat_ina_001 / 30
+r2 = float(employee_id.holidays_per_year) or 0.00
+result = (r1 * r2) / 12
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pro_grat" model="hr.salary.rule">
+            <field name="name">Provisión de gratificaciones</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">PRO_GRAT</field>
+            <field name="sequence">1000</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = 0.0
+cat_dict = categories.dict
+cat_ina_001 = cat_dict['INA_001'] if cat_dict.get('INA_001') else 0
+
+if payslip_id.contract_id and payslip_id.contract_id.labor_regime_id:
+    code_regime = payslip_id.contract_id.labor_regime_id.code or '-1'
+    if code_regime == '16':
+        result = 0.0
+    elif code_regime == '17':
+        result = cat_ina_001 / 24
+    else:
+        result = cat_ina_001 / 12
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pro_cts" model="hr.salary.rule">
+            <field name="name">Provisión de CTS</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_dae_001"/>
+            <field name="code">PRO_CTS</field>
+            <field name="sequence">1000</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = 0.0
+cat_dict = categories.dict
+cat_ina_001 = cat_dict['INA_001'] if cat_dict.get('INA_001') else 0
+
+if payslip_id.contract_id and payslip_id.contract_id.labor_regime_id:
+    code_regime = payslip_id.contract_id.labor_regime_id.code or '-1'
+    if code_regime == '16':
+        result = 0.0
+    elif code_regime == '17':
+        result = cat_ina_001 / 24
+    else:
+        result = cat_ina_001 / 12
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_fr_001" model="hr.salary.rule">
+            <field name="name">Fondo de reserva</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ing_001"/>
+            <field name="code">FR_001</field>
+            <field name="sequence">9</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Calcula el importe por fondo de reserva mensual. Esta regla puede ser usada para el pago mensual o para el provisionamiento. Lo
+                que lo determinara es la cuenta contable que se coloque y el cambio de categoria de regla.
+            </field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+if payslip_id.employee_id.fields_3_active:
+    contract_date_start = contract.date_start
+    thirteenth_contract = contract_date_start + relativedelta(months=+13)
+    thirteenth_month = int(thirteenth_contract.strftime('%m'))
+    thirteenth_year = int(thirteenth_contract.strftime('%Y'))
+    date_start_month = int(payslip.month)
+    date_start_year = int(payslip.year)
+    flag = False
+    if date_start_year >= thirteenth_year and date_start_month >= thirteenth_month:
+        flag = True
+    result = 0.0
+    if flag:
+        cat_dict = categories.dict
+        ina_001_cat = payslip.env.ref('basic_rule.hr_salary_rule_category_ina_001')
+        ina_001_amount = cat_dict[ina_001_cat.code] if cat_dict.get(ina_001_cat.code) else 0
+        da_001_cat = payslip.env.ref('basic_rule.hr_salary_rule_category_da_001')
+        da_001_amount = cat_dict[da_001_cat.code] if cat_dict.get(da_001_cat.code) else 0
+        result = (ina_001_amount + da_001_amount) * 0.0833
+else:
+    result = 0.0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_dav_001" model="hr.salary.rule">
+            <field name="name">Provisión vacaciones Ecuador</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_pro"/>
+            <field name="code">DAV_001</field>
+            <field name="sequence">100</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Calcula el importe por dias adicionales vacaciones que le corresponde al empleado a partir del 6to año.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+if payslip_id.employee_id.fields_4_active:
+    contract_date_start = contract.date_start
+    sixth_contract = contract_date_start + relativedelta(days=+1, years=+6)
+    sixth_year = int(sixth_contract.strftime('%Y'))
+    date_start_year = int(payslip.year)
+
+    cat_dict = categories.dict
+    ina_001_cat = payslip.env.ref('basic_rule.hr_salary_rule_category_ina_001')
+    ina_001_amount = cat_dict[ina_001_cat.code] if cat_dict.get(ina_001_cat.code) else 0
+    r2 = ina_001_amount / 24 / 30
+    leave_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.work_entry_type_id.unpaid and x.work_entry_type_id.is_leave)) if worked_days.dict else 0.00
+
+    if sixth_year > date_start_year:
+        r3 = 30 - leave_days
+        result = r2 * r3
+    else:
+        r3 = (date_start_year - sixth_year) + 1
+        r4 = 30 - leave_days + r3
+        result = r2 * r4
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_rb_002" model="hr.salary.rule">
+            <field name="name">Remuneración Básica Ecuador</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">RB_002</field>
+            <field name="sequence">3</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="note">Calcula el importe por remuneración en base a los días trabajados e inasistencias(Para Ecuador)</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+paid_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code in ['DDO', 'WORK100', 'GLOBAL'] or not x.unpaid)) if worked_days.dict else 0.00
+unpaid_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '23' or x.unpaid)) if worked_days.dict else 0.00
+friday_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == 'VIERNES')) if worked_days.dict else 0.00
+
+r1 = paid_days - unpaid_days - (2 * friday_days)
+
+global_data = globals()
+sd_001 = global_data['SD_001'] if 'SD_001' in global_data and global_data['SD_001'] > 0 else 0
+ajr_001 = global_data['AJR_001'] if 'AJR_001' in global_data and global_data['AJR_001'] > 0 else 0
+ajr_002 = global_data['AJR_002'] if 'AJR_002' in global_data and global_data['AJR_002'] > 0 else 0
+
+result = (r1  * sd_001) + ajr_001 + ajr_002
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_dec_001" model="hr.salary.rule">
+            <field name="name">Decimo Tercero</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">DEC_001</field>
+            <field name="sequence">9</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+if payslip_id.employee_id.fields_1_active:
+    cat_dict = categories.dict
+    cat_ina_001 = cat_dict['INA_001'] if cat_dict.get('INA_001') else 0
+    cat_da_001 = cat_dict['DA_001'] if cat_dict.get('DA_001') else 0
+    result = (cat_ina_001 - cat_da_001) / 12
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_dec_002" model="hr.salary.rule">
+            <field name="name">Decimo Cuarto</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">DEC_002</field>
+            <field name="sequence">8</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+if payslip_id.employee_id.fields_2_active:
+    paid_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code in ['DDO', 'WORK100', 'GLOBAL'] or not x.unpaid)) if worked_days.dict else 0.00
+    unpaid_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '23' or x.unpaid)) if worked_days.dict else 0.00
+    friday_days = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == 'VIERNES')) if worked_days.dict else 0.00
+
+    r1 = paid_days - unpaid_days - (2 * friday_days)
+    r2 = 400 / 12 / 30
+    result = r1 * r2
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pdt_002" model="hr.salary.rule">
+            <field name="name">Pago Decimo Tecero</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">PDT_002</field>
+            <field name="sequence">8</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+
+dec_002_lines = payslip.env['hr.payslip.line'].search([
+    ('employee_id', '=', payslip_id.employee_id.id),
+    ('date_start_dt', '>=', payslip_id.date_from),
+    ('date_start_dt', '&lt;=', payslip_id.date_to),
+    ('code', '=', 'DET_002'),
+    ('total', '>', 0)
+])
+result = sum(line.total for line in dec_002_lines)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pdc_002" model="hr.salary.rule">
+            <field name="name">Pago Decimo Cuarto</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">PDC_002</field>
+            <field name="sequence">8</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+
+dec_002_lines = payslip.env['hr.payslip.line'].search([
+    ('employee_id', '=', payslip_id.employee_id.id),
+    ('date_start_dt', '>=', payslip_id.date_from),
+    ('date_start_dt', '&lt;=', payslip_id.date_to),
+    ('code', '=', 'DEC_002'),
+    ('total', '>', 0)
+])
+result = sum(line.total for line in dec_002_lines)
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_cam_001" model="hr.salary.rule">
+            <field name="name">Campo 1</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">CAM_001</field>
+            <field name="sequence">22</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = payslip_id.employee_id.fields_1_value if payslip_id.employee_id.fields_1_active else 0.00
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_cam_002" model="hr.salary.rule">
+            <field name="name">Campo 2</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">CAM_002</field>
+            <field name="sequence">22</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = payslip_id.employee_id.fields_2_value if payslip_id.employee_id.fields_2_active else 0.00
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_cam_003" model="hr.salary.rule">
+            <field name="name">Campo 3</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">CAM_003</field>
+            <field name="sequence">22</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = payslip_id.employee_id.fields_3_value if payslip_id.employee_id.fields_3_active else 0.00
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_cam_004" model="hr.salary.rule">
+            <field name="name">Campo 4</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">CAM_004</field>
+            <field name="sequence">22</field>
+            <field name="struct_id" ref="basic_rule.hr_payroll_structure_base"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+result = payslip_id.employee_id.fields_4_value if payslip_id.employee_id.fields_4_active else 0.00
+            </field>
+        </record>
+
+    </data>
+</odoo>

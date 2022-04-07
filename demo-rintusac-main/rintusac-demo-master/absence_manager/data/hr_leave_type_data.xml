@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="hr_leave_type_ppd" model="hr.leave.type">
+            <field name="name">Pendiente por determinar</field>
+            
+            <field name="leave_validation_type">both</field>
+            <field name="code">PPD</field>
+            <field name="company_id"/>
+        </record>
+
+    </data>
+</odoo>

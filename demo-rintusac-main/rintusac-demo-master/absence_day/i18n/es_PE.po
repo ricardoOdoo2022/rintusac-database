@@ -1,0 +1,19 @@
+#. module: absence_day
+#: model:hr.work.entry.type,name:hr_work_entry.work_entry_type_attendance
+msgid "Attendance"
+msgstr "Días Laborados"
+
+#. module: absence_day
+#: model:hr.work.entry.type,name:absence_day.hr_work_entry_type_ddo
+msgid "Days off"
+msgstr "Días de descanso"
+
+#. module: absence_day
+#: model:hr.work.entry.type,name:absence_day.hr_work_entry_type_global
+msgid "Global Leave"
+msgstr "Permisos Globales"
+
+#. module: absence_day
+#: model:hr.work.entry.type,name:absence_day.hr_work_entry_type_workn
+msgid "Night shift"
+msgstr "Turno Noche"

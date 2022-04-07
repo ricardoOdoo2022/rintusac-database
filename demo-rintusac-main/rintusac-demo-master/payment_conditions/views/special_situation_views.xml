@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="special_situation_view_form" model="ir.ui.view">
+        <field name="name">special.situation.view.form</field>
+        <field name="model">special.situation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="situation_description"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="special_situation_view_tree" model="ir.ui.view">
+        <field name="name">special.situation.view.tree</field>
+        <field name="model">special.situation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="situation_description"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_special_situation" model="ir.actions.act_window">
+        <field name="name">[35] Situación especial</field>
+        <field name="res_model">special.situation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_special_situation"
+              name="[35] Situación especial"
+              parent="localization_menu.menu_hr_information_plame"
+              action="action_special_situation"
+              sequence="35"
+    />
+
+</odoo>

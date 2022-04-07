@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pension_system_officer,pension.system,model_pension_system,hr_contract.group_hr_contract_manager,1,1,1,1
+access_pension_system_all,pension.system,model_pension_system,hr_contract.group_hr_contract_manager,1,0,0,0
+access_comis_system_pension_officer,comis.system.pension,model_comis_system_pension,hr_contract.group_hr_contract_manager,1,1,1,1
+access_comis_system_pension_all,comis.system.pension,model_comis_system_pension,,1,0,0,0
+access_tope_afp_all,tope.afp,model_tope_afp,,1,1,1,1
+

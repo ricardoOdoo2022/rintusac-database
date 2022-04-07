@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payroll_projection_wizard_view_form" model="ir.ui.view">
+        <field name="name">payroll.projection.wizard.view.form</field>
+        <field name="model">payroll.projection.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <span class="o_form_label" style="font-weight: bold">Periodo</span>
+                        <span>
+                            <field name="date_from" style="width: 40%;" placeholder="Desde"/>
+                            -
+                            <field name="date_to" style="width: 40%;" placeholder="Hasta"/>
+                        </span>
+                        <field name="projection_type"/>
+                        <field name="cancel_rent"/>
+                        <field name="select_employee"/>
+                    </group>
+                    <field name="employees_ids" attrs="{'invisible':[('select_employee', '=', False)]}"
+                           domain="[('active','=', True)]"/>
+                </sheet>
+                <footer>
+                    <button name="calc_rent_5ta" string="Generar renta de 5ta" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_generator_wizard_rent_5ta" model="ir.actions.act_window">
+        <field name="name">Generador de Renta de 5ta</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payroll.projection.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hr_rent_5ta_wizard"
+              name="Generador de Renta de 5ta"
+              parent="menu_hr_rent_5ta_root"
+              action="action_generator_wizard_rent_5ta"
+              sequence="2"
+    />
+
+</odoo>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="holiday_generator_wizard_view_form" model="ir.ui.view">
+        <field name="name">holiday.generator.wizard.view.form</field>
+        <field name="model">holiday.generator.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4">
+                        <separator string="Empleados" colspan="4"/>
+                        <newline/>
+                        <field name="employees_ids" nolabel="1"
+                               domain="[('has_holidays','=', True),('active','=', True),('service_start_date','!=', False)]"
+                               attrs="{'readonly': [('is_generated', '=', True)]}"/>
+                    </group>
+                    <group attrs="{'invisible': [('is_generated', '=', True)]}">
+                        <field name="set_period"/>
+                        <span class="o_form_label" style="font-weight: bold"
+                              attrs="{'invisible': [('set_period', '!=', True)]}">Periodo
+                        </span>
+                        <span attrs="{'invisible': [('set_period', '!=', True)]}">
+                            <field name="date_from" style="width: 40%;" placeholder="Desde"
+                                   attrs="{'required': [('set_period', '=', True)]}"/>
+                            -
+                            <field name="date_to" style="width: 40%;" placeholder="Hasta"
+                                   attrs="{'required': [('set_period', '=', True)]}"/>
+                        </span>
+                    </group>
+                    <field name="is_generated" invisible="1"/>
+                </sheet>
+                <footer>
+                    <button string="Generar Vacaciones" name="action_generate_holidays" type="object"
+                            default_focus="1"
+                            class="oe_highlight" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"
+                            attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="holiday_petition_wizard_view_form" model="ir.ui.view">
+        <field name="name">holiday.petition.wizard.view.form</field>
+        <field name="model">holiday.petition.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="nro_holidays" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                        <field name="employee_id" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                        <field name="from_date" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                        <field name="to_date" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                        <field name="holiday_status_id" attrs="{'invisible': [('is_generated', '=', True)]}"
+                               readonly='1' options="{'no_create_edit': True}"/>
+                        <field name="is_generated" invisible="1"/>
+                    </group>
+                    <div class="oe_title" attrs="{'invisible': [('allocation_ids','=',[])]}">
+                        <h1>Asignaciones</h1>
+                    </div>
+                    <field name="allocation_ids"
+                           attrs="{'invisible': [('allocation_ids','=',[])]}"
+                           readonly="1">
+                        <tree edit="false" create="false" delete="false">
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                            <field name="pending_holiday" sum="Total Días Pendientes"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                    <strong>
+                        <field name="msj" attrs="{'invisible': [('is_generated', '!=', True)]}"/>
+                    </strong>
+                    <div class="oe_title"
+                         attrs="{'invisible': ['|',('is_generated', '!=', True), ('absence_ids','=',[])]}">
+                        <h1>Ausencias</h1>
+                    </div>
+                    <field name="absence_ids"
+                           attrs="{'invisible': ['|',('is_generated', '!=', True), ('absence_ids','=',[])]}"
+                           readonly="1">
+                        <tree edit="false" create="false" delete="false">
+                            <field name="holiday_status_id"/>
+                            <field name="request_date_from"/>
+                            <field name="request_date_to"/>
+                            <field name="number_of_days"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Generar Vacaciones" name="action_generate_holidays" type="object"
+                            default_focus="1"
+                            class="oe_highlight" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                    <button string="Volver" name="action_reopen_wizard" type="object" default_focus="1"
+                            class="oe_highlight" attrs="{'invisible': [('is_generated', '!=', True)]}"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="holiday_settlement_wizard_view_form" model="ir.ui.view">
+        <field name="name">holiday.settlement.wizard.view.form</field>
+        <field name="model">holiday.petition.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="nro_holidays" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                        <field name="employee_id" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                        <field name="from_date" attrs="{'invisible': [('is_generated', '=', True)]}"
+                               string="Fecha liquidación"/>
+                        <field name="to_date" invisible="1"/>
+                        <field name="holiday_status_id" attrs="{'invisible': [('is_generated', '=', True)]}"
+                               options="{'no_create_edit': True}"/>
+                        <field name="is_generated" invisible="1"/>
+                        <field name="is_settlement" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                    </group>
+                    <div class="oe_title" attrs="{'invisible': [('allocation_ids','=',[])]}">
+                        <h1>Asignaciones</h1>
+                    </div>
+                    <field name="allocation_ids"
+                           attrs="{'invisible': [('allocation_ids','=',[])]}"
+                           readonly="1">
+                        <tree edit="false" create="false" delete="false">
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                            <field name="pending_holiday" sum="Total Días Pendientes"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                    <strong>
+                        <field name="msj" attrs="{'invisible': [('is_generated', '!=', True)]}"/>
+                    </strong>
+                    <div class="oe_title"
+                         attrs="{'invisible': ['|',('is_generated', '!=', True), ('absence_ids','=',[])]}">
+                        <h1>Ausencias</h1>
+                    </div>
+                    <field name="absence_ids"
+                           attrs="{'invisible': ['|',('is_generated', '!=', True), ('absence_ids','=',[])]}"
+                           readonly="1">
+                        <tree edit="false" create="false" delete="false">
+                            <field name="holiday_status_id"/>
+                            <field name="request_date_from"/>
+                            <field name="request_date_to"/>
+                            <field name="number_of_days"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Generar" name="action_generate_holidays" type="object"
+                            default_focus="1"
+                            class="oe_highlight" attrs="{'invisible': [('is_generated', '=', True)]}"/>
+                    <button string="Volver" name="action_reopen_wizard" type="object" default_focus="1"
+                            class="oe_highlight" attrs="{'invisible': [('is_generated', '!=', True)]}"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_holiday_generator_wizard" model="ir.actions.act_window">
+        <field name="name">Generador de vacaciones</field>
+        <field name="res_model">holiday.generator.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <record id="action_petition_holiday_generator_wizard" model="ir.actions.act_window">
+        <field name="name">Solicitud de vacaciones</field>
+        <field name="res_model">holiday.petition.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'settlement': False}</field>
+    </record>
+
+    <record id="action_settlement_holiday_generator_wizard" model="ir.actions.act_window">
+        <field name="name">Compensación Vacaciones</field>
+        <field name="res_model">holiday.petition.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="holiday_process.holiday_settlement_wizard_view_form"/>
+        <field name="context">{'settlement': True}</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hr_holiday_generator_wizard"
+              parent="hr.menu_human_resources_configuration"
+              action="action_holiday_generator_wizard"
+    />
+
+    <!--<menuitem id="hr_leave_menu_wizard_petition_holiday_generator"
+              parent="hr_holidays.menu_hr_holidays_my_leaves"
+              action="action_petition_holiday_generator_wizard"
+    />-->
+
+    <menuitem id="hr_holidays_menu_manager_holiday_payroll_to_report"
+              name="Compensación Vacaciones"
+              parent="hr_holidays.menu_hr_holidays_approvals"
+              groups="hr_holidays.group_hr_holidays_manager,hr_holidays.group_hr_holidays_user"
+              action="action_settlement_holiday_generator_wizard"
+    />
+
+</odoo>

@@ -1,0 +1,507 @@
+#. module: hr_loan_advance_other
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_hr_loans_and_advances
+msgid "Loans And Salary Advance"
+msgstr "Préstamos y adelanto de sueldo"
+
+#. module: hr_loan_advance_other
+#: model:ir.actions.act_window,name:hr_loan_advance_other.action_hr_loan
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_hr_loan
+msgid "Loan Requests"
+msgstr "Solicitud de préstamo"
+
+#. module: hr_loan_advance_other
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_base_hr_loan
+msgid "Loan Requests"
+msgstr "Solicitud de préstamo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__name
+msgid "Loan Name"
+msgstr "Nombre del préstamo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model,name:hr_loan_advance_other.model_hr_employee
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__employee_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan_line__employee_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__employee_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts_line__employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model,name:hr_loan_advance_other.model_res_company
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__company_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: hr_loan_advance_other
+#: model:ir.model,name:hr_loan_advance_other.model_res_currency
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__currency_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__department_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__department_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__department
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_search_view
+msgid "Department"
+msgstr "Departamento"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__loan_amount
+msgid "Loan Amount"
+msgstr "Monto del préstamo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__discount_amount
+msgid "Discount Amount"
+msgstr "Monto del descuento"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__job_position
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__job_position
+msgid "Job Position"
+msgstr "Puesto de trabajo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__emp_account_id
+msgid "Loan Account"
+msgstr "Cuenta de préstamo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__emp_account_id
+msgid "Discount Account"
+msgstr "Cuenta de descuento"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__treasury_account_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__treasury_account_id
+msgid "Treasury Account"
+msgstr "Cuenta de Tesorería"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__date
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__date
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_search_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_search_view
+msgid "Date"
+msgstr "Fecha"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__state
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__state
+msgid "State"
+msgstr "Estado"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_search_view
+msgid "Status"
+msgstr "Estado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__state__draft
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_salary_advance__state__draft
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__state__draft
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_form_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_form_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_form_view
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__state__waiting_approval_1
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__state__waiting_approval_1
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_salary_advance__state__submit
+msgid "Submitted"
+msgstr "Presentado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__state__waiting_approval_2
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__state__waiting_approval_2
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_salary_advance__state__waiting_approval
+msgid "Waiting Approval"
+msgstr "Esperando Aprobación"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__state__refuse
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__state__refuse
+msgid "Refused"
+msgstr "Rechazado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__state__cancel
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__state__cancel
+msgid "Canceled"
+msgstr "Cancelado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__payment_date
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__payment_date
+msgid "Payment Start Date"
+msgstr "Fecha de inicio del pago"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__installment
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__installment
+msgid "No Of Installments"
+msgstr "Número de cuotas"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__journal_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__total_amount
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__total_amount
+msgid "Total Amount"
+msgstr "Cantidad Total"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__total_paid_amount
+msgid "Total Paid Amount"
+msgstr "Monto total pagado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__balance_amount
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__balance_amount
+msgid "Balance Amount"
+msgstr "Balance total"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan_line__payslip_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts_line__payslip_id
+msgid "Payslip Ref."
+msgstr "Ref. Nómina"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan_line__loan_id
+msgid "Loan Ref."
+msgstr "Ref. Préstamo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan_line__discount_id
+msgid "Other discount Ref."
+msgstr "Ref. Otros descuentos"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan_line__paid
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts_line__paid
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan_line__date
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts_line__date
+msgid "Payment Date"
+msgstr "Fecha de pago"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan_line__amount
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts_line__amount
+msgid "Amount"
+msgstr "Monto"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan_line__struct_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts_line__struct_id
+msgid "Salary Structure"
+msgstr "Estructura Salarial"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__contract_id
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__contract_id
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_form_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_form_view
+msgid "Installments"
+msgstr "Cuotas"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_form_view
+msgid "Loan Request"
+msgstr "Solicitud de préstamo"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_form_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_form_view
+msgid "Submit"
+msgstr "Presentado"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_form_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_form_view
+msgid "Refuse"
+msgstr "Rechazar"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_form_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_form_view
+msgid "Approve"
+msgstr "Aprobado"
+
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_form_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_form_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_form_view
+msgid "Compute Installment"
+msgstr "Generar cuotas"
+
+#. module: hr_loan_advance_other
+#: model:hr.rule.input,name:hr_loan_advance_other.hr_payslip_input_type_loan
+#: model:hr.salary.rule,name:hr_loan_advance_other.hr_salary_rule_loan
+#: model:hr.payslip.input.type,name:hr_loan_advance_other.hr_payslip_input_type_loan
+msgid "Loan"
+msgstr "Préstamo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_loan__loan_type
+msgid "Loan type"
+msgstr "Tipo de Préstamo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__loan_type__daily
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__discount_type__daily
+msgid "Daily"
+msgstr "Diario"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__loan_type__weekly
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__discount_type__weekly
+msgid "Weekly"
+msgstr "Semanal"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__loan_type__monthly
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__discount_type__monthly
+msgid "Monthly"
+msgstr "Mensual"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__loan_type__quarterly
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__discount_type__quarterly
+msgid "Quarterly"
+msgstr "Trimestral"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__loan_type__yearly
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_other_discounts__discount_type__yearly
+msgid "Yearly"
+msgstr "Anual"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_loan_search_view
+msgid "My Loans"
+msgstr "Mis préstamos"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_search_view
+msgid "My other discounts"
+msgstr "Mis otros descuentos"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.actions.act_window,help:hr_loan_advance_other.action_hr_loan
+msgid "Click to create a new Loan request."
+msgstr "Crear una solicitud de préstamo."
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.actions.act_window,help:hr_loan_advance_other.action_hr_other_discounts
+msgid "Click to create a new Other Discounts request."
+msgstr "Crear una solicitud de otros descuentos."
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.actions.act_window,help:hr_loan_advance_other.action_hr_loan
+msgid "Use this menu to create loan requests."
+msgstr "Use este menú para crear una solicitud de préstamo."
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.actions.act_window,help:hr_loan_advance_other.action_hr_other_discounts
+msgid "Use this menu to create other discounts requests."
+msgstr "Use este menú para crear una solicitud de otros descuentos."
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_employee_form_view_inherit_hr_loan_advance_other
+#: model:ir.actions.act_window,name:hr_loan_advance_other.act_hr_employee_loan_request
+#: model:hr.payroll.structure,name:hr_loan_advance_other.hr_payroll_structure_loans
+#: model:hr.payroll.structure.type,name:hr_loan_advance_other.hr_payroll_structure_type_loans
+msgid "Loans"
+msgstr "Préstamos"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.actions.act_window,help:hr_loan_advance_other.action_hr_salary_advance
+#: model_terms:ir.actions.act_window,help:hr_loan_advance_other.action_hr_salary_advance_approved
+#: model_terms:ir.actions.act_window,help:hr_loan_advance_other.action_hr_salary_advance_to_approve
+msgid "Create to create a new salary advance."
+msgstr "Crear una solicitud de adelanto de salario."
+
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_search_view
+msgid "My Requests"
+msgstr "Mis solicitudes"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_search_view
+msgid "To Approve"
+msgstr "Para aprobar"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_search_view
+msgid "To Submit"
+msgstr "Para presentar"
+
+#. module: hr_loan_advance_other
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_base_hr_salary_advance
+msgid "Advance"
+msgstr "Adelanto"
+
+#. module: hr_loan_advance_other
+#: model:ir.actions.act_window,name:hr_loan_advance_other.action_hr_salary_advance
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_my_salary_advance
+msgid "Request Salary Advance"
+msgstr "Solicitar adelanto de sueldo"
+
+#. module: hr_loan_advance_other
+#: model:ir.actions.act_window,name:hr_loan_advance_other.action_hr_salary_advance_approved
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_hr_salary_advance_approved
+msgid "My Approved Salary Advance"
+msgstr "Aprobación adelanto sueldo"
+
+#. module: hr_loan_advance_other
+#: model:ir.actions.act_window,name:hr_loan_advance_other.action_hr_salary_advance_to_approve
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_hr_salary_advance_to_approve
+msgid "Salary Advance To Approve"
+msgstr "Adelanto de sueldo para aprobación"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_form_view
+#: model:hr.payslip.input.type,name:hr_loan_advance_other.hr_payslip_input_type_advance
+msgid "Salary Advance"
+msgstr "Adelanto de sueldo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model,name:hr_loan_advance_other.model_hr_employee
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_search_view
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_other_discounts_search_view
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__reason
+msgid "Reason"
+msgstr "Razón"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__advance
+msgid "Advance"
+msgstr "Adelanto"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__credit
+msgid "Credit Account"
+msgstr "Cuenta de crédito"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__debit
+msgid "Debit Account"
+msgstr "Cuenta de débito"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__exceed_condition
+msgid "Exceed than maximum"
+msgstr "Supera el máximo"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_salary_advance__state
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_search_view
+msgid "State"
+msgstr "Estado"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_search_view
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_loan__state__approve
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_salary_advance__state__approve
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_salary_advance__state__cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields.selection,name:hr_loan_advance_other.selection__hr_salary_advance__state__reject
+msgid "Rejected"
+msgstr "Rechazado"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_form_view
+msgid "Submit"
+msgstr "Presentado"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_form_view
+msgid "Reject"
+msgstr "Rechazar"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_form_view
+msgid "Approve"
+msgstr "Aprobado"
+
+#. module: hr_loan_advance_other
+#: model_terms:ir.ui.view,arch_db:hr_loan_advance_other.hr_salary_advance_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: hr_loan_advance_other
+#: model:hr.salary.rule,name:hr_loan_advance_other.hr_payslip_rule_advance
+msgid "Advance Salary"
+msgstr "Adelanto de sueldo"
+
+#. module: hr_loan_advance_other
+#: model:ir.actions.act_window,name:hr_loan_advance_other.action_hr_other_discounts
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_base_hr_other_discounts
+#: model:ir.ui.menu,name:hr_loan_advance_other.menu_hr_other_discounts
+msgid "Other Discounts Requests"
+msgstr "Solicitud de otros descuentos"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__name
+msgid "Discount Name"
+msgstr "Nombre del descuento"
+
+#. module: hr_loan_advance_other
+#: model:hr.salary.rule,name:hr_loan_advance_other.hr_salary_rule_other_discount
+#: model:hr.payslip.input.type,name:hr_loan_advance_other.hr_payslip_input_type_other_discount
+msgid "Other discounts"
+msgstr "Otros descuentos"
+
+#. module: hr_loan_advance_other
+#: model:ir.model.fields,field_description:hr_loan_advance_other.field_hr_other_discounts__discount_type
+msgid "Discount type"
+msgstr "Tipo de descuento"

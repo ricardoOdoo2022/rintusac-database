@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_employee_view_form_inherit_identification_type_employee" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit.identification_type_employee</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='personal_information']/group/group/field[@name='identification_id']"
+                   position="before">
+                <field name="type_identification_id"/>
+                <field name="document_country_id"
+                       attrs="{'invisible': [('doc_nationality','in', ['national', False,''])]}"/>
+                <field name="doc_nationality" invisible="1"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='personal_information']/group" position="before">
+                <field name="error_dialog" class="infobox" attrs="{'invisible': [('error_dialog','in', [False,''])]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

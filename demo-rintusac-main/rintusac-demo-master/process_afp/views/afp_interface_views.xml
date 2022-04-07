@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="afp_interface_view_tree" model="ir.ui.view">
+        <field name="name">afp.interface.view.tree</field>
+        <field name="model">afp.interface</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="afp_interface_view_form" model="ir.ui.view">
+        <field name="name">afp.interface.view.form</field>
+        <field name="model">afp.interface</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_report" class="oe_highlight" string="Generar" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="xls_filename" invisible="1"/>
+                            <field name="xls_binary" filename="xls_filename" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_afp_interface" model="ir.actions.act_window">
+        <field name="name">Reporte AFP Net</field>
+        <field name="res_model">afp.interface</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_localization_menu_root_afp_interface"
+              name="Reporte AFP Net"
+              parent="hr_localization_menu.hr_localization_menu_root"
+              action="action_afp_interface"
+    />
+</odoo>

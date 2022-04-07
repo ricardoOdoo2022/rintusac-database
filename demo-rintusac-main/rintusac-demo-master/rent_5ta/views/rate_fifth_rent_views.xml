@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="rates_fifth_rent_form_view" model="ir.ui.view">
+        <field name="name">rates.fifth_rent.form.view</field>
+        <field name="model">rates.fifth_rent</field>
+        <field name="arch" type="xml">
+            <form duplicate="true">
+                <sheet>
+                    <group>
+                        <span class="o_form_label" style="font-weight: bold">Periodo</span>
+                        <span>
+                            <field name="date_from" style="width: 40%;" placeholder="Desde"/>
+                            -
+                            <field name="date_to" style="width: 40%;" placeholder="Hasta"/>
+                        </span>
+                    </group>
+                    <notebook>
+                        <page string="Porcentajes">
+                            <field name="rate_line_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="rates_fifth_rent_tree_view" model="ir.ui.view">
+        <field name="name">rates.fifth_rent.tree.view</field>
+        <field name="model">rates.fifth_rent</field>
+        <field name="arch" type="xml">
+            <tree duplicate="true">
+                <field name="date_from"/>
+                <field name="date_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="rates_fifth_rent_line_tree_view" model="ir.ui.view">
+        <field name="name">rates.fifth_rent.line.tree.view</field>
+        <field name="model">rates.fifth_rent.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="sequence"/>
+                <field name="value_from"/>
+                <field name="value_to"/>
+                <field name="amount_from"/>
+                <field name="amount_to"/>
+                <field name="percent"/>
+                <field name="rate_parent_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_rates_fifth_rent" model="ir.actions.act_window">
+        <field name="name">Tasas renta de 5ta</field>
+        <field name="res_model">rates.fifth_rent</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_localization_fifth_rent_rate"
+              name="Tasas renta de 5ta"
+              parent="localization_menu.menu_hr_localization_datos_nomina"
+              action="action_rates_fifth_rent"
+    />
+
+</odoo>

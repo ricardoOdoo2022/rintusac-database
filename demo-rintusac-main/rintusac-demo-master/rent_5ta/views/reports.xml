@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="external_layout_payroll_projection">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <template id="body_payroll_projection">
+        <div class="page">
+            <style type="text/css">
+                .new_table td{
+                    vertical-align: top ;
+                    width:150px !important;
+                }
+                .resize_image > img {
+                    width:88.44px;
+                    height:88.44px
+                }
+            </style>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <div>
+                <div class="row">
+                    <div class="col-3 mb4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 60px;" alt="Logo"/>
+                    </div>
+                    <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                </div>
+            </div>
+            <t t-set="period_id" t-value="periods[o.id]"/>
+
+            <div style="width:100%">
+                <table class="new_table" style="width:100%;">
+                    <thead>
+                        <tr style="height: 80px !important;"/>
+                        <tr>
+                            <th colspan="3" class="text-center">
+                                <span style="font-weight: 700;text-decoration: underline;"><strong>CERTIFICADO DE RENTAS Y RETENCIONES SOBRE RENTAS DE QUINTA CATEGORIA PERCIBIDAS POR EL TRABAJADOR</strong></span>
+                            </th>
+                        </tr>
+                        <tr style="height: 10px !important;"/>
+                        <tr>
+                            <th colspan="3" class="text-center">
+                                <span style="font-weight:normal; font-style: italic; font-size: 10pt;">ART. 45° DEL REGLAMENTO DE LA LEY DEL IMPUESTO A LA RENTA - D. S. Nº 122-94-EF</span>
+                            </th>
+                        </tr>
+                        <tr style="height: 10px !important;"/>
+                        <tr>
+                            <th colspan="3" class="text-center">
+                                <span style="font-weight: 700;font-size: 10pt;"><strong>EJERCICIO GRAVABLE: <span t-esc="o.date_from.strftime('%Y')"/></strong></span>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr style="height: 10px !important;"/>
+                        <tr>
+                            <td>
+                                <span style="font-size: 10pt; text-align: justify;">
+                                    <span>POR EL PRESENTE DOCUMENTO, <span style="font-weight: bold" class="text-uppercase" t-field="company.partner_id.name"/>, IDENTIFICADA CON RUC N° <span style="font-weight: bold" t-field="company.partner_id.vat"/>, DOMICILIADA EN <span style="font-weight: bold" class="text-uppercase" t-field="company.partner_id.street"/>.</span><br/>
+                                    <span>CERTIFICA QUE EL SR.(A):</span><br/>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr style="height: 10px !important;"/>
+                        <tr>
+                            <td>
+                                <div>
+                                    <span style="font-weight: 700;font-size: 10pt;text-align: left;">
+                                        <span class="text-uppercase" t-field="o.employee_id"/>, <span class="text-uppercase" t-field="o.employee_id.type_identification_id"/> <span class="text-uppercase" t-field="o.employee_id.identification_id"/>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="height: 10px !important;"/>
+                        <tr>
+                            <td>
+                                <div>
+                                    <span style="font-size: 10pt;text-align: left;">
+                                        <span>SE LE HA RETENIDO POR EL PERIODO COMPRENDIDO ENTRE: <span t-esc="period_id['period']"/></span>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <table style="width:100%" name="lines_data">
+                            <tr style="height: 10px !important;"/>
+                            <tr style="height: 10px !important;"/>
+
+                            <tr style="width:100% !important;">
+                                <td style="width:15% !important;"/>
+                                <td style="width:50% !important;">
+                                    <span style="font-size: 10pt;">I. RENTA BRUTA AFECTA:</span>
+                                </td>
+                                <td style="width:35% !important;">
+                                    <span style="font-size: 10pt;" t-esc="period_id['line_1']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                </td>
+                            </tr>
+
+                            <tr style="height: 10px !important;"/>
+                            <tr style="width:100% !important;">
+                                <td style="width:15% !important;"/>
+                                <td style="width:50% !important;">
+                                    <span style="font-size: 10pt;">II. DEDUCCIONES ( 7 UIT ):</span>
+                                </td>
+                                <td style="width:35% !important;">
+                                    <span style="font-size: 10pt;" t-esc="period_id['line_2']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                </td>
+                            </tr>
+
+                            <tr style="height: 10px !important;"/>
+                            <tr style="width:100% !important;">
+                                <td style="width:15% !important;"/>
+                                <td style="width:50% !important;">
+                                    <span style="font-size: 10pt;">III. RENTA NETA IMPONIBLE:</span>
+                                </td>
+                                <td style="width:35% !important;">
+                                    <span style="font-size: 10pt;" t-esc="period_id['line_3']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr style="height: 10px !important;"/>
+                            <tr style="width:100% !important;">
+                                <td style="width:15% !important;"/>
+                                <td style="width:50% !important;">
+                                    <span style="font-size: 10pt;">IV. IMPUESTO A LA RENTA DEL EJERCICIO:</span>
+                                </td>
+                                <td style="width:35% !important;">
+                                    <span style="font-size: 10pt;" t-esc="period_id['line_4']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                </td>
+                            </tr>
+
+                            <tr style="height: 10px !important;"/>
+                            <tr style="width:100% !important;">
+                                <td style="width:15% !important;"/>
+                                <td style="width:50% !important;">
+                                    <span style="font-size: 10pt;">V. TOTAL RENTA RETENIDA:</span>
+                                </td>
+                                <td style="width:35% !important;">
+                                    <span style="font-size: 10pt;" t-esc="period_id['line_5']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                </td>
+                            </tr>
+
+                            <tr style="height: 10px !important;"/>
+                            <tr style="width:100% !important;">
+                                <td style="width:15% !important;"/>
+                                <td style="width:50% !important;">
+                                    <span style="font-size: 10pt;">VI. DEVOLUCION DE IMPUESTO RETENIDO EN EXCESO:</span>
+                                </td>
+                                <td style="width:35% !important;">
+                                    <span style="font-size: 10pt;" t-esc="period_id['line_6']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr style="height: 10px !important;"/>
+                            <tr style="height: 10px !important;"/>
+                        </table>
+
+                        <tr>
+                            <td>
+                                <span style="font-size: 10pt;" t-esc="period_id['today']"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="width:100%">
+                    <t t-if="employer_sign">
+                        <div style="text-align: center;word-spacing: 1px;">
+                            <br/>
+                            <span t-esc="employer_sign['sign']" class="resize_image" t-options="{'widget': 'image'}"/>
+                            <br/>______________________________
+                            <br/><span t-esc="employer_sign['name']"/>
+                            <br/><span t-esc="employer_sign['job_title']"/>
+                        </div>
+                    </t>
+                    <t t-if="not employer_sign">
+                        <br/><br/><br/><br/>
+                        <div style="text-align: center;word-spacing: 1px;">
+                            <div style="width: 50% !important;height: 10px!important"/>_____________________________
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_payroll_projection">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="rent_5ta.external_layout_payroll_projection">
+                    <div style="width: 100%;">
+                        <div>
+                            <t t-call="rent_5ta.body_payroll_projection"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_payroll_projection" model="report.paperformat">
+        <field name="name">Payroll projection Paperformat</field>
+        <field name="orientation">Portrait</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_payroll_projection" model="ir.actions.report">
+        <field name="name">Renta 5ta - Reporte</field>
+        <field name="model">payroll.projection</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">rent_5ta.report_payroll_projection</field>
+        <field name="report_file">rent_5ta.report_payroll_projection</field>
+        <field name="print_report_name">'Renta 5ta - %s' % (object.employee_id.name)</field>
+        <field name="binding_model_id" ref="model_payroll_projection"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="rent_5ta.paperformat_payroll_projection"/>
+    </record>
+
+
+</odoo>
