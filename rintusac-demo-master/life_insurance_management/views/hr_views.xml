@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_employee_tree_view_inherit_life_insurance_management" model="ir.ui.view">
+        <field name="name">hr.employee.tree.view.inherit.life_insurance_management</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="life_insurance_id" invisible="1"/>
+                <field name="life_insurance" invisible="1"/>
+            </field>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-danger">life_insurance == True and life_insurance_id == False</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="hr_employee_view_form_inherit_life_insurance_management" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit.life_insurance_management</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="children" position="after">
+                <field name="life_insurance"/>
+                <field name="life_insurance_id" attrs="{'invisible':[('life_insurance','=', False)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="inherited_hr_attendance_view_filter_inherit_life_insurance_management" model="ir.ui.view">
+        <field name="name">hr.employee.view.filter.inherit.life_insurance_management</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <filter name="life_insurance_pending" string="Seguro vida pendiente"
+                        domain="[('life_insurance','=', True),('life_insurance_id', '=', False)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

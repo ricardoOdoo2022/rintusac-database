@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.work.entry.type"-->
+
+        <record id="hr_work_entry_type_ddo" model="hr.work.entry.type">
+            <field name="name">Days off</field>
+            <field name="code">DDO</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <record id="hr_work_entry_type_global" model="hr.work.entry.type">
+            <field name="name">Global Leave</field>
+            <field name="code">GLOBAL</field>
+            <field name="sequence">25</field>
+            <field name="round_days">FULL</field>
+            <field name="round_days_type">UP</field>
+        </record>
+
+        <record id="hr_work_entry_type_workn" model="hr.work.entry.type">
+            <field name="name">Night shift</field>
+            <field name="code">WORKN</field>
+            <field name="sequence">25</field>
+        </record>
+
+    </data>
+
+</odoo>

@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.salary.rule.category"-->
+
+        <record id="hr_salary_rule_category_ing_001" model="hr.salary.rule.category">
+            <field name="name">Ingresos</field>
+            <field name="code">ING_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_inn_001" model="hr.salary.rule.category">
+            <field name="name">Ingreso no Afecto</field>
+            <field name="code">INN_001</field>
+            <field name="parent_id" ref="basic_rule.hr_salary_rule_category_ing_001"/>
+        </record>
+
+        <record id="hr_salary_rule_category_ina_001" model="hr.salary.rule.category">
+            <field name="name">Ingreso Afecto</field>
+            <field name="code">INA_001</field>
+            <field name="parent_id" ref="basic_rule.hr_salary_rule_category_ing_001"/>
+        </record>
+
+        <record id="hr_salary_rule_category_dat_001" model="hr.salary.rule.category">
+            <field name="name">Deducción aportaciones del trabajador</field>
+            <field name="code">DAT_001</field>
+            <field name="parent_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="hr_salary_rule_category_da_001" model="hr.salary.rule.category">
+            <field name="name">Deducción Afecto</field>
+            <field name="code">DA_001</field>
+            <field name="parent_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="hr_salary_rule_category_dna_001" model="hr.salary.rule.category">
+            <field name="name">Deducción no Afecto</field>
+            <field name="code">DNA_001</field>
+            <field name="parent_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="hr_salary_rule_category_dae_001" model="hr.salary.rule.category">
+            <field name="name">Deducción aportaciones del empleador</field>
+            <field name="code">DAE_001</field>
+            <field name="parent_id" ref="hr_payroll.DED"/>
+        </record>
+
+        <record id="hr_salary_rule_category_bco_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo promedio Comisiones</field>
+            <field name="code">BCO_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_bin_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo promedio Incentivos</field>
+            <field name="code">BIN_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_bpd_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo promedio Destajo</field>
+            <field name="code">BPD_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_bpb_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo promedio bonificaciones</field>
+            <field name="code">BPB_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_afp_001" model="hr.salary.rule.category">
+            <field name="name">Ingreso afecto AFP</field>
+            <field name="code">AFP_001</field>
+            <field name="parent_id" ref="basic_rule.hr_salary_rule_category_ing_001"/>
+        </record>
+
+        <record id="hr_salary_rule_category_sp_001" model="hr.salary.rule.category">
+            <field name="name">Sistema de Pensiones</field>
+            <field name="code">SP_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_spp_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo SPP</field>
+            <field name="code">SPP_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_bas_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo</field>
+            <field name="code">BAS_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_dto_001" model="hr.salary.rule.category">
+            <field name="name">Dato fórmula</field>
+            <field name="code">DTO_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_bsm_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo subsidio</field>
+            <field name="code">BSM_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_bor_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo promedio Otras Remuneraciones</field>
+            <field name="code">BOR_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_bed_001" model="hr.salary.rule.category">
+            <field name="name">Base de cálculo promedio Extra Destajo</field>
+            <field name="code">BED_001</field>
+        </record>
+
+        <record id="hr_salary_rule_category_bcb_001" model="hr.salary.rule.category">
+            <field name="name">Base cálculo beneficios legales</field>
+            <field name="code">BCB_001</field>
+            <field name="note">Esta categoría sólo se utiliza para para complementar el cálculo de las reglas salariales de los beneficios legales como Gratificaciones, Cts.</field>
+        </record>
+
+        <record id="hr_salary_rule_category_pro" model="hr.salary.rule.category">
+            <field name="name">Provisiones</field>
+            <field name="code">PRO</field>
+            <field name="parent_id" ref="basic_rule.hr_salary_rule_category_dto_001"/>
+        </record>
+
+    </data>
+</odoo>

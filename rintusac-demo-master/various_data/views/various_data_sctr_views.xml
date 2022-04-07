@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="various_data_sctr_tree_view" model="ir.ui.view">
+        <field name="name">various.data.sctr.tree.view</field>
+        <field name="model">various.data.sctr</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="register_date"/>
+                <field name="due_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="various_data_sctr_form_view" model="ir.ui.view">
+        <field name="name">various.data.sctr.form.view</field>
+        <field name="model">various.data.sctr</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="register_date"/>
+                        </group>
+                        <group>
+                            <field name="due_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="pension_percent"/>
+                            <field name="health_percent"/>
+                        </group>
+                        <group>
+                            <field name="pension_amount"/>
+                            <field name="health_amount"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Empleados">
+                            <field name="employee_ids" widget="many2many" domain="[('sctr_id', '=', False)]"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sctr" model="ir.actions.act_window">
+        <field name="name">Seguro Complementario de trabajo de riesgo - SCTR</field>
+        <field name="res_model">various.data.sctr</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_sctr"
+              name="Seguro Complementario de trabajo de riesgo - SCTR"
+              parent="various_data.menu_hr_datos_tributarios"
+              action="action_sctr"
+    />
+
+</odoo>

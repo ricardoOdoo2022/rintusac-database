@@ -1,0 +1,50 @@
+#. module: employee_service_contract
+#: model:ir.model,name:employee_service_contract.model_hr_employee
+msgid "Employee"
+msgstr "Employé(e)"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,field_description:employee_service_contract.field_hr_employee__first_contract_id
+msgid "First Contract"
+msgstr "Premier contrat"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,help:employee_service_contract.field_hr_employee__first_contract_id
+msgid "First contract of the employee"
+msgstr "Premier contrat de l'employé(e)"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,field_description:employee_service_contract.field_hr_employee__last_contract_id
+msgid "Last Contract"
+msgstr "Dernier contrat"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,help:employee_service_contract.field_hr_employee__last_contract_id
+msgid "Last contract of the employee"
+msgstr "Dernier contrat de l'employé(e)"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,field_description:employee_service_contract.field_hr_employee__service_start_date
+msgid "Start Date"
+msgstr "Date de début"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,help:employee_service_contract.field_hr_employee__service_start_date
+msgid "Start date is the first day the employee actually works and this date is used for accrual leave allocations calculation"
+msgstr ""
+"La date de début est le premier jour où l'employé travaille réellement et "
+"cette date est utilisée pour le calcul des allocations de congés selon "
+"l'exercice comptable"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,field_description:employee_service_contract.field_hr_employee__service_termination_date
+msgid "Termination Date"
+msgstr "Date de fin"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,help:employee_service_contract.field_hr_employee__service_termination_date
+#, fuzzy
+msgid "Termination date is the last day the employee actually works and this date is used for accrual leave allocations calculation"
+msgstr ""
+"La date de fin est le dernier jour où l'employé travaille réellement et "
+"cette date est utilisée pour le calcul des allocations de congés accumulés"

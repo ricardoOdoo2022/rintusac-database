@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_special_situation_manager,special.situation,model_special_situation,hr_contract.group_hr_contract_manager,1,1,1,1
+access_payment_type_manager,payment.type,model_payment_type,hr_contract.group_hr_contract_manager,1,1,1,1
+access_payment_period_manager,payment.period,model_payment_period,hr_contract.group_hr_contract_manager,1,1,1,1
+access_variable_payment_manager,variable.payment,model_variable_payment,hr_contract.group_hr_contract_manager,1,1,1,1

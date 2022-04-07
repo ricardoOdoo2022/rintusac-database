@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="work_occupation_form" model="ir.ui.view">
+        <field name="name">work.occupation.form</field>
+        <field name="model">work.occupation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="[10-30] Ocupación">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="executive"/>
+                        <field name="employee"/>
+                        <field name="worker"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_occupation_tree" model="ir.ui.view">
+        <field name="name">work.occupation.tree</field>
+        <field name="model">work.occupation</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="[10-30] Ocupación">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="executive"/>
+                <field name="employee"/>
+                <field name="worker"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_work_occupation" model="ir.actions.act_window">
+        <field name="name">[10-30] Ocupación</field>
+        <field name="res_model">work.occupation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_work_occupation"
+              name="[10-30] Ocupación"
+              parent="localization_menu.menu_hr_information_plame"
+              action="action_work_occupation"
+              sequence="10"
+    />
+
+</odoo>

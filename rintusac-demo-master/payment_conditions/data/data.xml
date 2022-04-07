@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--"payment.period"-->
+
+        <record id="payment_period_1" model="payment.period">
+            <field name="name">MENSUAL</field>
+            <field name="payment_description">MENSUAL</field>
+            <field name="code">1</field>
+        </record>
+
+        <record id="payment_period_2" model="payment.period">
+            <field name="name">QUINCENAL</field>
+            <field name="payment_description">QUINCENAL</field>
+            <field name="code">2</field>
+        </record>
+
+        <record id="payment_period_3" model="payment.period">
+            <field name="name">SEMANAL</field>
+            <field name="payment_description">SEMANAL</field>
+            <field name="code">3</field>
+        </record>
+
+        <record id="payment_period_4" model="payment.period">
+            <field name="name">DIARIA</field>
+            <field name="payment_description">DIARIA</field>
+            <field name="code">4</field>
+        </record>
+
+        <record id="payment_period_5" model="payment.period">
+            <field name="name">OTROS</field>
+            <field name="payment_description">OTROS</field>
+            <field name="code">5</field>
+        </record>
+
+        <!--"variable.payment"-->
+
+        <record id="variable_payment_1" model="variable.payment">
+            <field name="name">Destajo</field>
+            <field name="code">1</field>
+        </record>
+
+        <record id="variable_payment_2" model="variable.payment">
+            <field name="name">Comisiones</field>
+            <field name="code">2</field>
+        </record>
+
+        <record id="variable_payment_3" model="variable.payment">
+            <field name="name">Ninguno</field>
+            <field name="code">3</field>
+        </record>
+        
+        <!--"payment.type"-->
+
+        <record id="payment_type_1" model="payment.type">
+            <field name="name">EFECTIVO</field>
+            <field name="payment_description">EFECTIVO</field>
+            <field name="code">1</field>
+        </record>
+
+        <record id="payment_type_2" model="payment.type">
+            <field name="name">DEPÓSITO EN CUENTA</field>
+            <field name="payment_description">DEPÓSITO EN CUENTA</field>
+            <field name="code">2</field>
+        </record>
+
+        <record id="payment_type_3" model="payment.type">
+            <field name="name">OTROS</field>
+            <field name="payment_description">OTROS</field>
+            <field name="code">3</field>
+        </record>
+        
+        <!--"special.situation"-->
+
+        <record id="special_situation_0" model="special.situation">
+            <field name="name">NINGUNA</field>
+            <field name="situation_description">NINGUNA</field>
+            <field name="code">0</field>
+        </record>
+
+        <record id="special_situation_1" model="special.situation">
+            <field name="name">DIRECCIÓN - PRESENCIAL</field>
+            <field name="situation_description">TRABAJADOR DE DIRECCIÓN – PRESENCIAL</field>
+            <field name="code">1</field>
+        </record>
+
+        <record id="special_situation_2" model="special.situation">
+            <field name="name">CONFIANZA - PRESENCIAL</field>
+            <field name="situation_description">TRABAJADOR DE CONFIANZA - PRESENCIAL</field>
+            <field name="code">2</field>
+        </record>
+
+        <record id="special_situation_3" model="special.situation">
+            <field name="name">DIRECCIÓN - TELETRABAJO MIXTO</field>
+            <field name="situation_description">TRABAJADOR DE DIRECCIÓN - TELETRABAJO MIXTO</field>
+            <field name="code">3</field>
+        </record>
+        <record id="special_situation_4" model="special.situation">
+            <field name="code">4</field>
+            <field name="name">CONFIANZA - TELETRABAJO MIXTO</field>
+            <field name="situation_description">TRABAJADOR DE CONFIANZA - TELETRABAJO MIXTO</field>
+        </record>
+        <record id="special_situation_5" model="special.situation">
+            <field name="code">5</field>
+            <field name="name">DIRECCIÓN - TELETRABAJO COMPLETO</field>
+            <field name="situation_description">TRABAJADOR DE DIRECCIÓN - TELETRABAJO COMPLETO</field>
+        </record>
+        <record id="special_situation_6" model="special.situation">
+            <field name="code">6</field>
+            <field name="name">CONFIANZA - TELETRABAJO COMPLETO</field>
+            <field name="situation_description">TRABAJADOR DE CONFIANZA - TELETRABAJO COMPLETO</field>
+        </record>
+        <record id="special_situation_7" model="special.situation">
+            <field name="code">7</field>
+            <field name="name">TELETRABAJO MIXTO</field>
+            <field name="situation_description">TELETRABAJO MIXTO</field>
+        </record>
+        <record id="special_situation_8" model="special.situation">
+            <field name="code">8</field>
+            <field name="name">TELETRABAJO COMPLETO</field>
+            <field name="situation_description">TELETRABAJO COMPLETO</field>
+        </record>
+    </data>
+</odoo>

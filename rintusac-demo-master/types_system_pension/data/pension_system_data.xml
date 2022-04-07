@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--"type.contract"-->
+
+        <record id="pension_system_2" model="pension.system">
+            <field name="code">2</field>
+            <field name="name">DL 19990 - SIST NAC DE PENS - ONP</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">DECRETO LEY 19990 - SISTEMA NACIONAL DE PENSIONES - ONP</field>
+            <field name="private_sector">0</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_3" model="pension.system">
+            <field name="code">3</field>
+            <field name="name">DECRETO LEY 20530</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">DECRETO LEY 20530</field>
+            <field name="private_sector">0</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_9" model="pension.system">
+            <field name="code">9</field>
+            <field name="name">CBSSP</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">CAJA DE BENEFICIOS DE SEGURIDAD SOCIAL DEL PESCADOR</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">0</field>
+        </record>
+        <record id="pension_system_10" model="pension.system">
+            <field name="code">10</field>
+            <field name="name">CAJA DE PENSIONES MILITAR</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">0</field>
+            <field name="pension_system">CAJA DE PENSIONES MILITAR</field>
+            <field name="private_sector">0</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_11" model="pension.system">
+            <field name="code">11</field>
+            <field name="name">CAJA DE PENSIONES POLICIAL</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">0</field>
+            <field name="pension_system">CAJA DE PENSIONES POLICIAL</field>
+            <field name="private_sector">0</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_12" model="pension.system">
+            <field name="code">12</field>
+            <field name="name">OTROS REGIMENES PENSIONARIOS</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">OTROS REGIMENES PENSIONARIOS (1)</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_13" model="pension.system">
+            <field name="code">13</field>
+            <field name="name">REGIMEN DEL SDR</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">RÉGIMEN DEL SERVICIO DIPLOMÁTICO DE LA REPÚBLICA</field>
+            <field name="private_sector">0</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_14" model="pension.system">
+            <field name="code">14</field>
+            <field name="name">LEY 29903 - SNP - INDEPENDIENTE</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">LEY 29903 - SISTEMA NACIONAL DE PENSIONES -INDEPENDIENTES</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_15" model="pension.system">
+            <field name="code">15</field>
+            <field name="name">REP - TRAB. PESQUEROS</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">LEY 30003 - RÉGIMEN ESPECIAL DE PENSIONES -PESQUEROS</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">0</field>
+        </record>
+        <record id="pension_system_16" model="pension.system">
+            <field name="code">16</field>
+            <field name="name">LEY 30003 TDEP</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">0</field>
+            <field name="pension_system">LEY 30003 TRANSFERENCIA DIRECTA EX PESC</field>
+            <field name="private_sector">0</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_21" model="pension.system">
+            <field name="code">21</field>
+            <field name="name">SPP INTEGRA</field>
+            <field name="cuspp">1</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">SPP INTEGRA</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_22" model="pension.system">
+            <field name="code">22</field>
+            <field name="name">SPP HORIZONTE</field>
+            <field name="cuspp">1</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">SPP HORIZONTE</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_23" model="pension.system">
+            <field name="code">23</field>
+            <field name="name">SPP PROFUTURO</field>
+            <field name="cuspp">1</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">SPP PROFUTURO</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_24" model="pension.system">
+            <field name="code">24</field>
+            <field name="name">SPP PRIMA</field>
+            <field name="cuspp">1</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">SPP PRIMA</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_25" model="pension.system">
+            <field name="code">25</field>
+            <field name="name">SPP HABITAT</field>
+            <field name="cuspp">1</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">SPP HABITAT</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">1</field>
+        </record>
+        <record id="pension_system_98" model="pension.system">
+            <field name="code">98</field>
+            <field name="name">PEND ELEC REG PENSIONARIO</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">0</field>
+            <field name="pension_system">PENDIENTE DE ELECCIÓN DE REGIMEN PENSIONARIO</field>
+            <field name="private_sector">0</field>
+            <field name="public_sector">0</field>
+        </record>
+        <record id="pension_system_99" model="pension.system">
+            <field name="code">99</field>
+            <field name="name">SIN REG PENSIONARIO/NO APLICA</field>
+            <field name="cuspp">0</field>
+            <field name="other_entities">1</field>
+            <field name="pension_system">SIN REGIMEN PENSIONARIO/NO APLICA</field>
+            <field name="private_sector">1</field>
+            <field name="public_sector">1</field>
+        </record>
+
+    </data>
+</odoo>

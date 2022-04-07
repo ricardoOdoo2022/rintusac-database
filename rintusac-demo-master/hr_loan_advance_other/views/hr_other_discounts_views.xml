@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_other_discounts_tree_view" model="ir.ui.view">
+        <field name="name">hr.other.discounts.tree</field>
+        <field name="model">hr.other.discounts</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="discount_amount"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_other_discounts_form_view" model="ir.ui.view">
+        <field name="name">hr.other.discounts.form</field>
+        <field name="model">hr.other.discounts</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" type="object" string="Approve" states="waiting_approval_1" class="oe_highlight"
+                            groups="hr.group_hr_manager,hr.group_hr_user"/>
+                    <button name="action_submit" type="object" string="Submit" states="draft" class="oe_highlight"/>
+                    <button name="action_draft" type="object" string="Draft" states="waiting_approval_1,refuse,cancel"
+                            groups="hr.group_hr_manager,hr.group_hr_user"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="approve,draft,waiting_approval_1"/>
+                    <button name="action_refuse" type="object" string="Refuse" states="approve,waiting_approval_1,waiting_approval_2,cancel"
+                            groups="hr.group_hr_manager,hr.group_hr_user"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting_approval_1,approve"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="employee_id" attrs="{'readonly':[('state','=','approve')]}"/>
+                        <field name="date"/>
+                        <field name="department_id"/>
+                        <field name="job_position"/>
+                        <field name="contract_id"/>
+                        <field name="discount_amount" attrs="{'readonly':[('state','=','approve')]}"/>
+                        <field name="installment" attrs="{'readonly':[('state','=','approve')]}"/>
+                        <field name="payment_date" attrs="{'readonly':[('state','=','approve')]}"/>
+                        <field name="emp_account_id" attrs="{'invisible':[('state', '=','draft')]}"/>
+                        <field name="treasury_account_id" attrs="{'invisible':[('state', '=','draft')]}"/>
+                        <field name="journal_id" attrs="{'invisible':[('state', '=','draft')]}"/>
+                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        <field name="discount_type" attrs="{'readonly':[('state','=','approve')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Installments">
+                            <field name="discount_lines" attrs="{'readonly':[('state','=','approve')]}" context="{'default_employee_id': employee_id}">
+                                <tree string="Installments" editable="bottom">
+                                    <field name="struct_id"/>
+                                    <field name="employee_id" invisible="1"/>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="paid" readonly="1" invisible="1"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" colspan="2">
+                                <field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_paid_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="balance_amount" class="oe_subtotal_footer_separator" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <button type="object" name="compute_installment" string="Compute Installment" colspan="2"
+                                    attrs="{'invisible':[('state','=','approve')]}"
+                                    groups="hr.group_hr_manager,hr.group_hr_user" class="oe_stat_button"
+                                    icon="fa-clock-o"/>
+                            <div class="oe_clear"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_other_discounts_search_view" model="ir.ui.view">
+        <field name="name">hr.other.discounts.search.view</field>
+        <field name="model">hr.other.discounts</field>
+        <field name="arch" type="xml">
+            <search string="Other discounts">
+                <filter string="My other discounts" name="myOtherDiscounts" domain="[('employee_id.user_id.id', '=', uid)]"/>
+                <field string="Employee" name="employee_id"/>
+                <field string="Department" name="department_id"/>
+                <filter string="Employee" name="employee_id" context="{'group_by':'employee_id'}"/>
+                <filter string="Department" name="department_id" context="{'group_by':'department_id'}"/>
+                <filter string="Status" name="status" context="{'group_by':'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_other_discounts" model="ir.actions.act_window">
+        <field name="name">Other Discounts Requests</field>
+        <field name="res_model">hr.other.discounts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_myOtherDiscounts': 1}</field>
+        <field name="search_view_id" ref="hr_other_discounts_search_view"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new Other Discounts request.
+            </p>
+            <p>
+                Use this menu to create other discounts requests.
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Other Discounts Requests"
+              id="menu_base_hr_other_discounts"
+              parent="hr_loan_advance_other.menu_hr_loans_and_advances"
+    />
+
+    <menuitem name="Other Discounts Requests"
+              parent="menu_base_hr_other_discounts"
+              id="menu_hr_other_discounts"
+              action="action_hr_other_discounts"
+    />
+
+</odoo>

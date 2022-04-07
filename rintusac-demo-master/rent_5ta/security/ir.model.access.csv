@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payroll_projection_all,payroll.projection,model_payroll_projection,,1,1,1,1
+access_payroll_projection_line_all,payroll.projection.line,model_payroll_projection_line,,1,1,1,1
+access_payroll_projection_exception_all,payroll.projection.exception,model_payroll_projection_exception,,1,1,1,1
+access_rates_fifth_rent_all,rates.fifth_rent,model_rates_fifth_rent,,1,1,1,1
+access_rates_fifth_rent_line_all,rates.fifth_rent.line,model_rates_fifth_rent_line,,1,1,1,1
+access_payroll_projection_wizard_all,payroll.projection.wizard,model_payroll_projection_wizard,,1,1,1,1

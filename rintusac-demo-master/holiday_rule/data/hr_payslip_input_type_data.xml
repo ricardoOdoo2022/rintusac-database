@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.payslip.input.type"-->
+
+        <record id="hr_payslip_input_type_por_001" model="hr.payslip.input.type">
+            <field name="code">POR_001</field>
+            <field name="name">Importe promedio otras remuneraciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_ped_001" model="hr.payslip.input.type">
+            <field name="code">PED_001</field>
+            <field name="name">Promedio Extra Destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_phn_001" model="hr.payslip.input.type">
+            <field name="code">PHN_001</field>
+            <field name="name">Promedio complemento nocturno</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_pco_001" model="hr.payslip.input.type">
+            <field name="code">PCO_001</field>
+            <field name="name">Promedio de Comisiones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_pin_001" model="hr.payslip.input.type">
+            <field name="code">PIN_001</field>
+            <field name="name">Promedio de Incentivos</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_pbo_001" model="hr.payslip.input.type">
+            <field name="code">PBO_001</field>
+            <field name="name">Promedio de Bonificaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_asf_002" model="hr.payslip.input.type">
+            <field name="code">ASF_002</field>
+            <field name="name">Asignación familiar vacaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_001" model="hr.payslip.input.type">
+            <field name="code">VAC_001</field>
+            <field name="name">Vacaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_002" model="hr.payslip.input.type">
+            <field name="code">VAC_002</field>
+            <field name="name">Vacaciones Destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_005" model="hr.payslip.input.type">
+            <field name="code">VAC_005</field>
+            <field name="name">Importe compensación vacacional</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_003" model="hr.payslip.input.type">
+            <field name="code">VAC_003</field>
+            <field name="name">Importe Vacaciones truncas</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_004" model="hr.payslip.input.type">
+            <field name="code">VAC_004</field>
+            <field name="name">Importe vacaciones truncas destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_006" model="hr.payslip.input.type">
+            <field name="code">VAC_006</field>
+            <field name="name">Importe Indemnización vacaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_007" model="hr.payslip.input.type">
+            <field name="code">VAC_007</field>
+            <field name="name">Nro. de indemnización vacacional</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_rcv_001" model="hr.payslip.input.type">
+            <field name="code">RCV_001</field>
+            <field name="name">Remuneración computable vacaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_rcv_002" model="hr.payslip.input.type">
+            <field name="code">RCV_002</field>
+            <field name="name">Remuneración computable destajo vacaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_trv_001" model="hr.payslip.input.type">
+            <field name="code">TRV_001</field>
+            <field name="name">Importe total para cal. vacaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_010" model="hr.payslip.input.type">
+            <field name="code">VAC_010</field>
+            <field name="name">Importe compensación vacacional</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_net_005" model="hr.payslip.input.type">
+            <field name="code">NET_005</field>
+            <field name="name">Importe vacaciones a pagar</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_008" model="hr.payslip.input.type">
+            <field name="code">VAC_008</field>
+            <field name="name">Nro. de indemnización vacacional destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_vac_009" model="hr.payslip.input.type">
+            <field name="code">VAC_009</field>
+            <field name="name">Importe Indemnización de vacaciones destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_phe_001" model="hr.payslip.input.type">
+            <field name="code">PHE_001</field>
+            <field name="name">Promedio de Horas extra</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('holiday_rule.hr_payroll_structure_holiday'))]"/>
+        </record>
+
+    </data>
+</odoo>

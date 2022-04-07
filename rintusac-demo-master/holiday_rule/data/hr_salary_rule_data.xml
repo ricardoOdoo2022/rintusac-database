@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.salary.rule"-->
+
+        <record id="hr_salary_rule_por_001" model="hr.salary.rule">
+            <field name="name">Promedio Otras Remuneraciones</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">POR_001</field>
+            <field name="sequence">7</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('POR_001') and inputs.dict.get('POR_001').amount > 0:
+    result = inputs.POR_001.amount
+else:
+    global_data = globals()
+    bor_002 = global_data['BOR_002'] if 'BOR_002' in global_data and global_data['BOR_002'] > 0 else 0
+    result = bor_002 / 6
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_ped_001" model="hr.salary.rule">
+            <field name="name">Promedio Extra Destajo</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">PED_001</field>
+            <field name="sequence">7</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('PED_001') and inputs.dict.get('PED_001').amount > 0:
+    result = inputs.PED_001.amount
+else:
+    global_data = globals()
+    bed_002 = global_data['BED_002'] if 'BED_002' in global_data and global_data['BED_002'] > 0 else 0
+    result = bed_002 / 6
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_phn_001" model="hr.salary.rule">
+            <field name="name">Promedio complemento nocturno</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">PHN_001</field>
+            <field name="sequence">7</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('PHN_001') and inputs.dict.get('PHN_001').amount > 0:
+    result = inputs.PHN_001.amount
+else:
+    global_data = globals()
+    bhn_002 = global_data['BHN_002'] if 'BHN_002' in global_data and global_data['BHN_002'] > 0 else 0
+    result = bhn_002 / 6
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pco_001" model="hr.salary.rule">
+            <field name="name">Promedio Comisiones</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">PCO_001</field>
+            <field name="sequence">7</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('PCO_001') and inputs.dict.get('PCO_001').amount > 0:
+    result = inputs.PCO_001.amount
+else:
+    global_data = globals()
+    bco_001 = global_data['BCO_001'] if 'BCO_001' in global_data and global_data['BCO_001'] > 0 else 0
+    result = bco_001 / 6
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pin_001" model="hr.salary.rule">
+            <field name="name">Promedio de Incentivos</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">PIN_001</field>
+            <field name="sequence">7</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('PIN_001') and inputs.dict.get('PIN_001').amount > 0:
+    result = inputs.PIN_001.amount
+else:
+    global_data = globals()
+    bin_001 = global_data['BIN_001'] if 'BIN_001' in global_data and global_data['BIN_001'] > 0 else 0
+    result = bin_001 / 6
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_pbo_001" model="hr.salary.rule">
+            <field name="name">Promedio de Bonificaciones</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">PBO_001</field>
+            <field name="sequence">7</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('PBO_001') and inputs.dict.get('PBO_001').amount > 0:
+    result = inputs.PBO_001.amount
+else:
+    global_data = globals()
+    bcb_001 = global_data['BCB_001'] if 'BCB_001' in global_data and global_data['BCB_001'] > 0 else 0
+    result = bcb_001 / 6
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_asf_002" model="hr.salary.rule">
+            <field name="name">Asignación familiar vacaciones</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">ASF_002</field>
+            <field name="sequence">12</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('ASF_002') and inputs.dict.get('ASF_002').amount > 0:
+    result = inputs.ASF_002.amount
+else:
+    employee = payslip.env['hr.employee'].browse(payslip.employee_id)
+    if employee and employee.children > 0:
+        rmv_id = payslip.env['various.data.rmv'].search([('is_active', '=', True)], limit=1)
+        result = rmv_id.af_amount if rmv_id else 0</field>
+        </record>
+
+        <record id="hr_salary_rule_vac_001" model="hr.salary.rule">
+            <field name="name">Vacaciones</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">VAC_001</field>
+            <field name="sequence">14</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('VAC_001') and inputs.dict.get('VAC_001').amount > 0:
+    result = inputs.VAC_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and not struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        global_data = globals()
+        trv_001 = global_data['TRV_001'] if 'TRV_001' in global_data and global_data['TRV_001'] > 0 else 0
+        days_data = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '23')) if worked_days.dict else 0.00
+        result = trv_001 / 30 * days_data
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_vac_002" model="hr.salary.rule">
+            <field name="name">Vacaciones Destajo</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">VAC_002</field>
+            <field name="sequence">14</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('VAC_002') and inputs.dict.get('VAC_002').amount > 0:
+    result = inputs.VAC_002.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        global_data = globals()
+        trv_001 = global_data['TRV_001'] if 'TRV_001' in global_data and global_data['TRV_001'] > 0 else 0
+        days_data = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '23')) if worked_days.dict else 0.00
+        result = trv_001 / 28 * days_data
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_vac_003" model="hr.salary.rule">
+            <field name="name">Vacaciones truncas</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">VAC_003</field>
+            <field name="sequence">14</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="note">Calcula el monto correspondiente a las vacaciones truncas</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('VAC_003') and inputs.dict.get('VAC_003').amount > 0:
+     result = inputs.VAC_003.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and not struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        global_data = globals()
+        trv_001 = global_data['TRV_001'] if 'TRV_001' in global_data and global_data['TRV_001'] > 0 else 0
+        days_data = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == 'VAC_LBS')) if worked_days.dict else 0.00
+        result = trv_001 / 30 * days_data
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_vac_004" model="hr.salary.rule">
+            <field name="name">Vacaciones truncas destajo</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">VAC_004</field>
+            <field name="sequence">14</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="note">Calcula el monto correspondiente a las vacaciones truncas para destajo.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('VAC_004') and inputs.dict.get('VAC_004').amount > 0:
+    result = inputs.VAC_004.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        global_data = globals()
+        trv_001 = global_data['TRV_001'] if 'TRV_001' in global_data and global_data['TRV_001'] > 0 else 0
+        days_data = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == 'VAC_LBS')) if worked_days.dict else 0.00
+        result = trv_001 / 28 * days_data
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_vac_005" model="hr.salary.rule">
+            <field name="name">Compensación vacacional</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">VAC_005</field>
+            <field name="sequence">15</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="note">Calcula las vacaciones que son vendidas al empleador.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('VAC_005') and inputs.dict.get('VAC_005').amount > 0:
+     result = inputs.VAC_005.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and not struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        global_data = globals()
+        trv_001 = global_data['TRV_001'] if 'TRV_001' in global_data and global_data['TRV_001'] > 0 else 0
+        days_data = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '90')) if worked_days.dict else 0.00
+        result = trv_001 / 30 * days_data
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_vac_006" model="hr.salary.rule">
+            <field name="name">Indemnización vacaciones</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">VAC_006</field>
+            <field name="sequence">16</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="note">La indemnización es equivalente a una remuneración por no haber disfrutado de descanso vacacional.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('VAC_006') and inputs.dict.get('VAC_006').amount > 0:
+    result = inputs.VAC_006.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and not struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        result = contract.wage
+        employee = payslip_id.employee_id
+        if employee and employee.children > 0:
+            rmv_id = payslip.env['various.data.rmv'].search([('is_active', '=', True)], limit=1)
+            result += rmv_id.af_amount if rmv_id else 0
+        if inputs.dict.get('VAC_007'):
+            result *= inputs.VAC_007.amount</field>
+        </record>
+
+        <record id="hr_salary_rule_rcv_001" model="hr.salary.rule">
+            <field name="name">Remuneración computable</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">RCV_001</field>
+            <field name="sequence">8</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('RCV_001') and inputs.dict.get('RCV_001').amount > 0:
+    result = inputs.RCV_001.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and not struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        result = contract.wage</field>
+        </record>
+
+        <record id="hr_salary_rule_rcv_002" model="hr.salary.rule">
+            <field name="name">Remuneración computable destajo</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">RCV_002</field>
+            <field name="sequence">8</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('RCV_002') and inputs.dict.get('RCV_002').amount > 0:
+    result = inputs.RCV_002.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        global_data = globals()
+        bdp_001 = global_data['BPD_001'] if 'BPD_001' in global_data and global_data['BPD_001'] > 0 else 0
+        result = bdp_001 / 4</field>
+        </record>
+
+        <record id="hr_salary_rule_trv_001" model="hr.salary.rule">
+            <field name="name">Total remuneración para vacaciones</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">TRV_001</field>
+            <field name="sequence">13</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('TRV_001') and inputs.dict.get('TRV_001').amount > 0:
+    result = inputs.TRV_001.amount
+else:
+    result = categories.BCV_001</field>
+        </record>
+
+        <record id="hr_salary_rule_vac_010" model="hr.salary.rule">
+            <field name="name">Compensación vacacional destajo</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_ina_001"/>
+            <field name="code">VAC_010</field>
+            <field name="sequence">15</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="note">Calcula las vacaciones que son vendidas al empleador.</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('VAC_010') and inputs.dict.get('VAC_010').amount > 0:
+    result = inputs.VAC_010.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        global_data = globals()
+        trv_001 = global_data['TRV_001'] if 'TRV_001' in global_data and global_data['TRV_001'] > 0 else 0
+        days_data = sum(line.number_of_days for line in payslip_id.worked_days_line_ids.filtered(lambda x: x.code == '90')) if worked_days.dict else 0.00
+        result = trv_001 / 28 * days_data</field>
+        </record>
+
+        <record id="hr_salary_rule_net_005" model="hr.salary.rule">
+            <field name="name">Vacaciones a pagar</field>
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="code">NET_005</field>
+            <field name="sequence">200</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('NET_005') and inputs.dict.get('NET_005').amount > 0:
+    result = inputs.NET_005.amount
+else:
+    cat_dict = categories.dict
+    cat_ing_001 = cat_dict['ING_001'] if cat_dict.get('ING_001') else 0
+    cat_ded = cat_dict['DED'] if cat_dict.get('DED') else 0
+    result = cat_ing_001 - cat_ded</field>
+        </record>
+
+        <record id="hr_salary_rule_vac_008" model="hr.salary.rule">
+            <field name="name">Indemnización vacaciones destajo</field>
+            <field name="category_id" ref="basic_rule.hr_salary_rule_category_inn_001"/>
+            <field name="code">VAC_008</field>
+            <field name="sequence">16</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if inputs.dict.get('VAC_008') and inputs.dict.get('VAC_008').amount > 0:
+    result = inputs.VAC_008.amount
+else:
+    payslip_id = payslip.env['hr.payslip'].browse(slip_id)
+    struct_id = payslip_id.struct_id
+    if struct_id and struct_id.rule_ids.filtered(lambda x: x.code == 'DT_001'):
+        global_data = globals()
+        bpd_001 = global_data['BPD_001'] if 'BPD_001' in global_data and global_data['BPD_001'] > 0 else 0
+        result = bpd_001 / 4
+        if inputs.dict.get('VAC_009'):
+            result *= inputs.VAC_009.amount
+        else:
+            result = 0</field>
+        </record>
+
+        <record id="hr_salary_rule_phe_001" model="hr.salary.rule">
+            <field name="name">Promedio de Horas extra</field>
+            <field name="category_id" ref="holiday_rule.hr_salary_rule_category_bcv_001"/>
+            <field name="code">PHE_001</field>
+            <field name="sequence">7</field>
+            <field name="struct_id" ref="holiday_rule.hr_payroll_structure_holiday"/>
+            <field name="appears_on_payslip">0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if inputs.dict.get('PHE_001') and inputs.dict.get('PHE_001').amount > 0:
+    result = inputs.PHE_001.amount
+else:
+    global_data = globals()
+    bhe_001 = global_data['BHE_001'] if 'BHE_001' in global_data and global_data['BHE_001'] > 0 else 0
+    result = bhe_001 / 6
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="resource_calendar_form_view_inherit_absence_day" model="ir.ui.view">
+        <field name="name">resource.calendar.form.view.inherit.absence_day</field>
+        <field name="model">resource.calendar</field>
+        <field name="inherit_id" ref="resource.resource_calendar_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='global_leave_ids']/tree/field[@name='date_to']" position="after">
+                <field name="work_entry_type_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

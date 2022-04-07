@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.work.entry.type"-->
+
+        <record id="hr_work_entry_type_01" model="hr.work.entry.type">
+            <field name="name">S.P. Sanción Disciplinaria</field>
+            <field name="code">01</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_02" model="hr.work.entry.type">
+            <field name="name">S.P. Ejercicio Derecho Huelga</field>
+            <field name="code">02</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_03" model="hr.work.entry.type">
+            <field name="name">S.P. Detención Del Trabajador</field>
+            <field name="code">03</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_04" model="hr.work.entry.type">
+            <field name="name">S.P. Inhabilitación Administrativa O Judicial</field>
+            <field name="code">04</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_05" model="hr.work.entry.type">
+            <field name="name">S.P. Permiso O Licencia Sin Goce De Haber</field>
+            <field name="code">05</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_06" model="hr.work.entry.type">
+            <field name="name">S.P. Caso Fortuito O Fuerza Mayor</field>
+            <field name="code">06</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_07" model="hr.work.entry.type">
+            <field name="name">S.P. Falta No Justificada</field>
+            <field name="code">07</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_08" model="hr.work.entry.type">
+            <field name="name">S.P. Por Temporada O Intermitente</field>
+            <field name="code">08</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_09" model="hr.work.entry.type">
+            <field name="name">S.P Maternidad - Pre Y Post Natal</field>
+            <field name="code">09</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_10" model="hr.work.entry.type">
+            <field name="name">S.P Sentencia terr, narc, corrup y violac.</field>
+            <field name="code">10</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_11" model="hr.work.entry.type">
+            <field name="name">S.P Imposición de medida cautelar</field>
+            <field name="code">11</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_12" model="hr.work.entry.type">
+            <field name="name">S.P Enferm. Padre, Cónyuge o conviviente</field>
+            <field name="code">12</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_20" model="hr.work.entry.type">
+            <field name="name">S.I. Enferm/Accidente (20 Primeros Días)</field>
+            <field name="code">20</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">1</field>
+        </record>
+
+        <record id="hr_work_entry_type_21" model="hr.work.entry.type">
+            <field name="name">S.I. Incap Temporal (Subsidiado))</field>
+            <field name="code">21</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">1</field>
+        </record>
+
+        <record id="hr_work_entry_type_22" model="hr.work.entry.type">
+            <field name="name">S.I. Maternidad - Pre Y Post Natal</field>
+            <field name="code">22</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">1</field>
+        </record>
+
+        <record id="hr_work_entry_type_24" model="hr.work.entry.type">
+            <field name="name">S.I. Lic Desemp Cargo Cívico</field>
+            <field name="code">24</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_25" model="hr.work.entry.type">
+            <field name="name">S.I. Lic Desempeño Cargos Sindicales</field>
+            <field name="code">25</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_26" model="hr.work.entry.type">
+            <field name="name">S.I. Licencia Con Goce De Haber</field>
+            <field name="code">26</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_27" model="hr.work.entry.type">
+            <field name="name">S.I. Días Compens Por Horas De Sobretiempo</field>
+            <field name="code">27</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_28" model="hr.work.entry.type">
+            <field name="name">S.I. Días Licencia Por Paternidad</field>
+            <field name="code">28</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_29" model="hr.work.entry.type">
+            <field name="name">S.I. Dias Licencia Por Adopción</field>
+            <field name="code">29</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_30" model="hr.work.entry.type">
+            <field name="name">S.I Imposición de medida cautelar</field>
+            <field name="code">30</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_31" model="hr.work.entry.type">
+            <field name="name">S.I Citac. judicial, Militar, policial o administ.</field>
+            <field name="code">31</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_32" model="hr.work.entry.type">
+            <field name="name">S.I Fallecimiento Padres, Cónyuge e hijos</field>
+            <field name="code">32</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_33" model="hr.work.entry.type">
+            <field name="name">S.I Represent. del estado en eventos</field>
+            <field name="code">33</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_34" model="hr.work.entry.type">
+            <field name="name">S.I Des vacac, Lic por asiste médica o terap rehab</field>
+            <field name="code">34</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+
+        <record id="hr_work_entry_type_35" model="hr.work.entry.type">
+            <field name="name">S.I Emfermedad grave o terminal o accidente grave de Fam. Directo</field>
+            <field name="code">35</field>
+            <field name="is_leave">1</field>
+            <field name="is_calc_own_rule">0</field>
+        </record>
+        
+    </data>
+</odoo>

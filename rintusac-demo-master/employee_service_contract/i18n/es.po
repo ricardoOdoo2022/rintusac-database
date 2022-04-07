@@ -1,0 +1,49 @@
+#. module: employee_service_contract
+#: model:ir.model,name:employee_service_contract.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,field_description:employee_service_contract.field_hr_employee__first_contract_id
+msgid "First Contract"
+msgstr "Primer Contrato"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,help:employee_service_contract.field_hr_employee__first_contract_id
+msgid "First contract of the employee"
+msgstr "Primer Contrato del Empleado"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,field_description:employee_service_contract.field_hr_employee__last_contract_id
+msgid "Last Contract"
+msgstr "Último Contrato"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,help:employee_service_contract.field_hr_employee__last_contract_id
+msgid "Last contract of the employee"
+msgstr "Último Contrato del Empleado"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,field_description:employee_service_contract.field_hr_employee__service_start_date
+msgid "Start Date"
+msgstr "Fecha de Inicio"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,help:employee_service_contract.field_hr_employee__service_start_date
+msgid "Start date is the first day the employee actually works and this date is used for accrual leave allocations calculation"
+msgstr ""
+"La fecha de inicio es el primer día que el empleado realmente trabaja y esta "
+"fecha se utiliza para el cálculo de las asignaciones de vacaciones devengadas"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,field_description:employee_service_contract.field_hr_employee__service_termination_date
+msgid "Termination Date"
+msgstr "Fecha de finalización"
+
+#. module: employee_service_contract
+#: model:ir.model.fields,help:employee_service_contract.field_hr_employee__service_termination_date
+msgid "Termination date is the last day the employee actually works and this date is used for accrual leave allocations calculation"
+msgstr ""
+"La fecha de finalización es el último día que el empleado realmente trabaja "
+"y esta fecha se utiliza para el cálculo de las asignaciones de vacaciones "
+"devengadas"

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="life_insurance_view_form" model="ir.ui.view">
+        <field name="name">life.insurance.form</field>
+        <field name="model">life.insurance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="nro"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="hiring_term"/>
+                        <field name="rate"/>
+                        <field name="amount"/>
+                    </group>
+                    <notebook>
+                        <page string="Empleados">
+                            <field name="employees_ids" widget="many2many"
+                                   domain="[('life_insurance_id', '=', False)]"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="life_insurance_view_tree" model="ir.ui.view">
+        <field name="name">life.insurance.tree</field>
+        <field name="model">life.insurance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="nro"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="hiring_term"/>
+                <field name="rate"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="life_insurance_action" model="ir.actions.act_window">
+        <field name="name">Vida Ley</field>
+        <field name="res_model">life.insurance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_life_insurance"
+              name="Vida ley"
+              parent="localization_menu.menu_hr_localization_datos_nomina"
+              action="life_insurance_action"
+    />
+
+</odoo>

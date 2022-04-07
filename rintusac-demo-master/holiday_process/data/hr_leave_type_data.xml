@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.leave.type"-->
+
+        <record id="hr_leave_type_23" model="hr.leave.type">
+            <field name="name">Descanso Vacacional</field>
+            <field name="code">23</field>
+            <field name="validity_start" eval="False"/>
+            <field name="validity_stop" eval="False"/>
+            <field name="allocation_validation_type">no</field>
+            <field name="leave_validation_type">manager</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">1</field>
+            <field name="company_id"/>
+            <field name="work_entry_type_id" ref="holiday_process.hr_work_entry_type_23"/>
+        </record>
+
+    </data>
+
+</odoo>

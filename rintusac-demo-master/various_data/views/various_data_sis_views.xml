@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="various_data_sis_tree" model="ir.ui.view">
+        <field name="name">various.data.sis.tree</field>
+        <field name="model">various.data.sis</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="register_date"/>
+                <field name="due_date"/>
+                <field name="sis_amount"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_sis" model="ir.actions.act_window">
+        <field name="name">SIS</field>
+        <field name="res_model">various.data.sis</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_sis"
+              name="SIS"
+              parent="various_data.menu_hr_datos_tributarios"
+              action="action_sis"
+    />
+
+</odoo>

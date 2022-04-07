@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_holiday_petition_wizard_all,access_holiday_petition_wizard,model_holiday_petition_wizard,,1,1,1,1
+access_holiday_generator_wizard_all,access_holiday_generator_wizard,model_holiday_generator_wizard,,1,1,1,1
+

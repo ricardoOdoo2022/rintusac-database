@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pension_system_view_tree" model="ir.ui.view">
+        <field name="name">pension.system.view.tree</field>
+        <field name="model">pension.system</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="pension_system"/>
+                <field name="name"/>
+                <field name="private_sector"/>
+                <field name="public_sector"/>
+                <field name="other_entities"/>
+                <field name="cuspp"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pension_system_view_form" model="ir.ui.view">
+        <field name="name">pension.system.view.form</field>
+        <field name="model">pension.system</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="pension_system"/>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Comisiones" name="comisiones">
+                            <field name="comis_pension_ids"/>
+                        </page>
+                    </notebook>
+                    <group colspan="4" col="8">
+                        <field name="private_sector"/>
+                        <field name="public_sector"/>
+                        <field name="other_entities"/>
+                        <field name="cuspp"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pension_system" model="ir.actions.act_window">
+        <field name="name">[11] Sistema Pensionario</field>
+        <field name="res_model">pension.system</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_pension_system"
+              name="[11] Sistema Pensionario"
+              parent="localization_menu.menu_hr_information_plame"
+              action="action_pension_system"
+              sequence="11"
+    />
+
+</odoo>

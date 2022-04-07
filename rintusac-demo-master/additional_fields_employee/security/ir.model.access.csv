@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_type_contract_hr_contract_manager,type_contract,model_type_contract,hr_contract.group_hr_contract_manager,1,1,1,1
+access_employee_regime_hr_contract_manager,employee.regime,model_employee_regime,hr_contract.group_hr_contract_manager,1,1,1,1
+access_health_regime_all,health.regime,model_health_regime,,1,1,1,1
+acccess_work_occupation_hr_contract_manager,work.occupation,model_work_occupation,hr_contract.group_hr_contract_manager,1,1,1,1
+access_academic_degree_official,academic.degree,model_academic_degree,hr.group_hr_user,1,1,1,1

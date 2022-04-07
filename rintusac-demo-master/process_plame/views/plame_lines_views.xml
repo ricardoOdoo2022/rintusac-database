@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="plame_lines_form_view" model="ir.ui.view">
+        <field name="name">plame.lines.form.view</field>
+        <field name="model">plame.lines</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="code"/>
+                    <field name="name"/>
+                </group>
+                <group>
+                    <field name="essalud_seguro_regular"/>
+                    <field name="essalud_cbssp"/>
+                    <field name="essalud_seguro_agrario"/>
+                    <field name="essalud_sctr"/>
+                    <field name="imp_extra_solidaridad"/>
+                    <field name="fondo_der_artista"/>
+                    <field name="senati"/>
+                    <field name="sistema_nacional_pensiones"/>
+                </group>
+                <group>
+                    <field name="sistema_privado_pensiones"/>
+                    <field name="fondo_compl_jub"/>
+                    <field name="reg_esp_pesquero"/>
+                    <field name="rent5ta"/>
+                    <field name="essalud_regular_pension"/>
+                    <field name="contrib_sol_asist"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="plame_lines_tree_view" model="ir.ui.view">
+        <field name="name">plame.lines.tree.view</field>
+        <field name="model">plame.lines</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="essalud_seguro_regular"/>
+                <field name="essalud_cbssp"/>
+                <field name="essalud_seguro_agrario"/>
+                <field name="essalud_sctr"/>
+                <field name="imp_extra_solidaridad"/>
+                <field name="fondo_der_artista"/>
+                <field name="senati"/>
+                <field name="sistema_nacional_pensiones"/>
+                <field name="sistema_privado_pensiones"/>
+                <field name="fondo_compl_jub"/>
+                <field name="reg_esp_pesquero"/>
+                <field name="rent5ta"/>
+                <field name="essalud_regular_pension"/>
+                <field name="contrib_sol_asist"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_plame_lines" model="ir.actions.act_window">
+        <field name="name">[22] Ingresos, tributos y descuentos</field>
+        <field name="res_model">plame.lines</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_table_plame"
+              name="[22]  Ingresos, tributos y descuentos"
+              parent="menu_hr_localization_hr_plame"
+              action="action_plame_lines"
+    />
+
+</odoo>

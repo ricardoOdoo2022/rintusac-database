@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.payroll.structure"-->
+
+         <record id="hr_payroll_structure_holiday" model="hr.payroll.structure">
+            <field name="name">Vacaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="type_id" ref="basic_rule.hr_payroll_structure_type_general"/>
+            <field name="rule_ids" eval="[]"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(6, 0, [
+            ref('automatic_leave_type.hr_work_entry_type_01'),
+            ref('automatic_leave_type.hr_work_entry_type_02'),
+            ref('automatic_leave_type.hr_work_entry_type_03'),
+            ref('automatic_leave_type.hr_work_entry_type_04'),
+            ref('automatic_leave_type.hr_work_entry_type_05'),
+            ref('automatic_leave_type.hr_work_entry_type_06'),
+            ref('automatic_leave_type.hr_work_entry_type_07'),
+            ref('automatic_leave_type.hr_work_entry_type_08'),
+            ref('automatic_leave_type.hr_work_entry_type_09'),
+            ref('automatic_leave_type.hr_work_entry_type_10'),
+            ref('automatic_leave_type.hr_work_entry_type_11'),
+            ref('automatic_leave_type.hr_work_entry_type_12'),
+            ref('automatic_leave_type.hr_work_entry_type_20'),
+            ref('automatic_leave_type.hr_work_entry_type_21'),
+            ref('automatic_leave_type.hr_work_entry_type_22'),
+            ref('automatic_leave_type.hr_work_entry_type_24'),
+            ref('automatic_leave_type.hr_work_entry_type_25'),
+            ref('automatic_leave_type.hr_work_entry_type_26'),
+            ref('automatic_leave_type.hr_work_entry_type_28'),
+            ref('automatic_leave_type.hr_work_entry_type_29'),
+            ref('automatic_leave_type.hr_work_entry_type_30'),
+            ref('automatic_leave_type.hr_work_entry_type_31'),
+            ref('automatic_leave_type.hr_work_entry_type_32'),
+            ref('automatic_leave_type.hr_work_entry_type_33'),
+            ref('automatic_leave_type.hr_work_entry_type_34'),
+            ref('automatic_leave_type.hr_work_entry_type_35'),
+            ref('hr_work_entry.work_entry_type_attendance'),
+            ref('absence_day.hr_work_entry_type_global'),
+            ref('absence_day.hr_work_entry_type_ddo')])]"/>
+        </record>
+
+    </data>
+</odoo>

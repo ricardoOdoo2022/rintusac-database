@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="hr_leave_type_90" model="hr.leave.type">
+            <field name="name">Compensación vacacional</field>
+            <field name="allocation_type">fixed</field>
+            <field name="code">90</field>
+            <field name="unpaid">1</field>
+            <field name="request_unit">day</field>
+            <field name="company_id"/>
+            <field name="work_entry_type_id" ref="holiday_sale.hr_work_entry_type_90"/>
+        </record>
+
+    </data>
+</odoo>

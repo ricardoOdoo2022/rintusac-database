@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_payslip_line_view_tree_payroll_fields" model="ir.ui.view">
+        <field name="name">hr.payslip.line.view.tree.payroll_fields</field>
+        <field name="model">hr.payslip.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date_from" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="date_to" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="date_start_dt"/>
+                <field name="date_start" invisible="1"/>
+                <field name="slip_id" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="employee_id" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="name" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="code" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="quantity" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="category_id" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="amount" attrs="{'readonly': [('state', 'not in', [False, 'draft'])]}"/>
+                <field name="department_id" invisible="1"/>
+                <field name="disability" invisible="1"/>
+                <field name="struct_id" invisible="1"/>
+                <field name="state" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="hr_payslip_line_view_pivot_payroll_fields" model="ir.ui.view">
+        <field name="name">hr.payslip.line.view.pivot.payroll_fields</field>
+        <field name="model">hr.payslip.line</field>
+        <field name="arch" type="xml">
+            <pivot/>
+        </field>
+    </record>
+
+    <record id="hr_payslip_line_view_filter_payroll_fields" model="ir.ui.view">
+        <field name="name">hr.payslip.line.view.filter.payroll_fields</field>
+        <field name="model">hr.payslip.line</field>
+        <field name="arch" type="xml">
+            <search string="Search Payslips Lines">
+                <field name="department_id" string="Departamento"/>
+                <field name="struct_id" string="Estructura"/>
+                <!--                <field name="type_id" string="Categoría Empleado"/>-->
+                <filter string="Seis meses anteriores" name="six_month_before" domain="[('id','!=','-1')]"/>
+                <separator/>
+                <filter string="Este mes" name="current_month"
+                        domain="[('date_to','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date_to','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                <separator/>
+                <filter string="Borrador" name="draft" domain="[('state','=','draft')]" help="Draft Payslips Lines"/>
+                <filter string="Hecho" name="done" domain="[('state','=','done')]" help="Done Payslips Lines"/>
+                <separator/>
+                <filter string="Discapacidad" name="disability" domain="[('disability','=',True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_line_menu" model="ir.actions.act_window">
+        <field name="name">Análisis de Planilla</field>
+        <field name="res_model">hr.payslip.line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="hr_payslip_line_view_tree_payroll_fields"/>
+        <field name="search_view_id" ref="hr_payslip_line_view_filter_payroll_fields"/>
+    </record>
+
+    <menuitem id="menu_hr_payslip_line"
+              name="Análisis de Planilla"
+              parent="hr_payroll.menu_hr_payroll_report"
+              action="action_hr_payslip_line_menu"
+    />
+
+
+</odoo>

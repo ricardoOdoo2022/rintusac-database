@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_contract_update_wizard_form_view" model="ir.ui.view">
+        <field name="name">hr.contract.update.wizard.form.view</field>
+        <field name="model">hr.contract.update.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <strong><p>“Sólo usar esta función si desea que todas las entradas de trabajo se generen de manera automática nuevamente en el rango de
+                        fecha que ingrese en los campo ´DESDE´ y ´HASTA´ . Para evitar conflictos, sugerimos que previamente elimine las entradas de trabajo
+                        anteriores y después de generar, revise los conflictos que se presenten en “entradas de trabajo.”</p></strong>
+                    <group>
+                        <field name="date_generated_from"/>
+                        <field name="date_generated_to"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generar" name="action_update_hr_contract_fields" class="btn-primary" type="object"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_update_hr_contract_fields" model="ir.actions.server">
+        <field name="name">Generar entradas de trabajo</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="hr_contract.model_hr_contract"/>
+        <field name="binding_model_id" ref="hr_contract.model_hr_contract"/>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_open_hr_contract_update_wizard()
+        </field>
+    </record>
+
+</odoo>

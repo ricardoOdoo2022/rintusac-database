@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_contract_form_inherit_additional_fields_employee" model="ir.ui.view">
+        <field name="name">hr.contract.view.form.inherit.additional_fields_employee</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group/field[@name='date_start']" position="before">
+                <field name="labor_regime_id"/>
+                <field name="labor_condition_id"/>
+            </xpath>
+            <xpath expr="//group/group/field[@name='hr_responsible_id']" position="before">
+                <field name="maximum_working_day"/>
+                <field name="atypical_cumulative_day"/>
+                <field name="nocturnal_schedule"/>
+                <field name="unionized"/>
+                <field name="is_practitioner"/>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="work_occupation_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="hr_employee_view_form_inherit_additional_fields_employee" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.additional_fields_employee</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group/field[@name='gender']" position="before">
+                <field name="health_regime_id"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='personal_information']/group" position="inside">
+                <group string="Salud" name="health" groups="hr.group_hr_user">
+                    <group>
+                        <field name="disability"/>
+                    </group>
+                </group>
+                <group string="Otros" name="other_fields" colspan="4">
+                    <group colspan="4">
+                        <label for="fields_1_str" string="Campo 1"/>
+                        <div>
+                            <field name="fields_1_str" class="oe_inline"/> - <field name="fields_1_value" class="oe_inline"/> - <field name="fields_1_active" class="oe_inline"/>
+                        </div>
+                    </group>
+                    <group colspan="4">
+                        <label for="fields_2_str" string="Campo 2"/>
+                        <div>
+                            <field name="fields_2_str" class="oe_inline"/> - <field name="fields_2_value" class="oe_inline"/> - <field name="fields_2_active" class="oe_inline"/>
+                        </div>
+                    </group>
+                    <group colspan="4">
+                        <label for="fields_3_str" string="Campo 3"/>
+                        <div>
+                            <field name="fields_3_str" class="oe_inline"/> - <field name="fields_3_value" class="oe_inline"/> - <field name="fields_3_active" class="oe_inline"/>
+                        </div>
+                    </group>
+                    <group colspan="4">
+                        <label for="fields_4_str" string="Campo 4"/>
+                        <div>
+                            <field name="fields_4_str" class="oe_inline"/> - <field name="fields_4_value" class="oe_inline"/> - <field name="fields_4_active" class="oe_inline"/>
+                        </div>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//notebook/page[@name='personal_information']/group/group/field[@name='certificate']" position="before">
+                <field name="academic_degree_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

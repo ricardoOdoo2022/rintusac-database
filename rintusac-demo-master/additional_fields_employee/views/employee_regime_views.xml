@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="employee_regime_form" model="ir.ui.view">
+        <field name="name">employee.regime.form</field>
+        <field name="model">employee.regime</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="[33] Régimen Laboral">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="regime_description"/>
+                        <field name="name"/>
+                        <field name="private_sector"/>
+                        <field name="public_sector"/>
+                        <field name="other_entities"/>
+                        <field name="is_mype"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_regime_tree" model="ir.ui.view">
+        <field name="name">employee.regime.tree</field>
+        <field name="model">employee.regime</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="[33] Régimen Laboral">
+                <field name="code"/>
+                <field name="regime_description"/>
+                <field name="name"/>
+                <field name="private_sector"/>
+                <field name="public_sector"/>
+                <field name="other_entities"/>
+                <field name="is_mype"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_employee_regime" model="ir.actions.act_window">
+        <field name="name">[33] Régimen Laboral</field>
+        <field name="res_model">employee.regime</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_employee_regime"
+              name="[33] Régimen Laboral"
+              parent="localization_menu.menu_hr_information_plame"
+              action="action_employee_regime"
+              sequence="33"
+    />
+
+</odoo>

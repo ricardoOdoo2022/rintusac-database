@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="health_regime_tree" model="ir.ui.view">
+        <field name="name">health.regime.tree</field>
+        <field name="model">health.regime</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="health_description"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="health_regime_form" model="ir.ui.view">
+        <field name="name">health.regime.form</field>
+        <field name="model">health.regime</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="health_description"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_health_regime" model="ir.actions.act_window">
+        <field name="name">[32] Régimen de Aseguramiento de Salud</field>
+        <field name="res_model">health.regime</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_health_regime"
+              name="[32] Régimen de Aseguramiento de Salud"
+              parent="localization_menu.menu_hr_information_plame"
+              action="action_health_regime"
+              sequence="32"
+    />
+
+</odoo>

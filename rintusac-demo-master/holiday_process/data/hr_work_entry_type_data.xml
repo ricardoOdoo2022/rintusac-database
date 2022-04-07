@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.work.entry.type"-->
+
+        <record id="hr_work_entry_type_23" model="hr.work.entry.type">
+            <field name="name">Descanso Vacacional</field>
+            <field name="code">23</field>
+            <field name="is_leave">1</field>
+        </record>
+
+        <record id="hr_work_entry_type_vac_lbs" model="hr.work.entry.type">
+            <field name="name">Vacaciones a liquidar</field>
+            <field name="code">VAC_LBS</field>
+            <field name="sequence">50</field>
+        </record>
+
+    </data>
+
+</odoo>

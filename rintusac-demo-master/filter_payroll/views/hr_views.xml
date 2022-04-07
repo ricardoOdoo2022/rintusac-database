@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_work_entry_type_view_form_inherit_automatic_leave_type" model="ir.ui.view">
+        <field name="name">hr.work.entry.type.view.form.inherit.automatic_leave_type</field>
+        <field name="model">hr.work.entry.type</field>
+        <field name="inherit_id" ref="hr_work_entry.hr_work_entry_type_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sequence']" position="after">
+                <field name="unpaid"/>
+                <field name="is_calc_own_rule"/>
+                <field name="is_social_benefits_license"/>
+                <field name="is_benefits_license_absence"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_type_form_view_inherit_filter_payroll" model="ir.ui.view">
+        <field name="name">hr.leave.type.view.form.view.inherit.filter_payroll</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="after">
+                <field name="is_calc_own_rule" invisible="1"/>
+                <field name="is_social_benefits_license" invisible="1"/>
+                <field name="is_benefits_license_absence" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payslip_form_view_inherit_filter_payroll" model="ir.ui.view">
+        <field name="name">hr.payslip.form.view.inherit.filter_payroll</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='worked_days_line_ids']/tree/field[@name='sequence']" position="after">
+                <field name="is_social_benefits_license" invisible="1"/>
+                <field name="is_benefits_license_absence" invisible="1"/>
+                <field name="is_calc_own_rule" invisible="1"/>
+                <field name="unpaid" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payslip_worked_days_search_view_inherit_filter_payroll" model="ir.ui.view">
+        <field name="name">hr.payslip.worked_days.search.view.inherit.filter_payroll</field>
+        <field name="model">hr.payslip.worked_days</field>
+        <field name="inherit_id" ref="payroll_fields.hr_payslip_worked_days_view_filter_payroll_fields"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='current_month']" position="before">
+                <separator/>
+                <filter string="CTS" name="cts_filter" domain="['|','|',('code', 'in', ['20']), ('is_social_benefits_license','=', True), ('is_benefits_license_absence','=', True)]"/>
+                <separator/>
+                <filter string="Gratificación" name="grati_filter" domain="['|', ('is_social_benefits_license','=', True), ('is_benefits_license_absence','=', True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_search_view_inherit_filter_payroll" model="ir.ui.view">
+        <field name="model">hr.leave.search.view.inherit.filter_payroll</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.view_hr_holidays_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='approve']" position="before">
+                <filter string="CTS" name="cts_filter" domain="['|','|',('code_holiday', 'in', ['20']), ('is_social_benefits_license','=', True), ('is_benefits_license_absence','=', True)]"/>
+                <separator/>
+                <filter string="Gratificación" name="grati_filter" domain="['|', ('is_social_benefits_license','=', True), ('is_benefits_license_absence','=', True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_attendance_search_view_inherit_filter_payroll" model="ir.ui.view">
+        <field name="name">hr.attendance.search.view.inherit.filter_payroll</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter" position="after">
+                <separator/>
+                <filter string="CTS" name="cts_filter" domain="['|','|','|',('holiday_status_id', '=', False),('code_holiday', 'in', ['20']), ('is_social_benefits_license','=', True), ('is_benefits_license_absence','=', True)]"/>
+                <separator/>
+                <filter string="Gratificación" name="grati_filter" domain="['|','|',('holiday_status_id', '=', False), ('is_social_benefits_license','=', True), ('is_benefits_license_absence','=', True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

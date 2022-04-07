@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--"type.contract"-->
+
+        <record id="type_contract_01" model="type.contract">
+            <field name="name">A PLAZO INDET - D.LEG. 728</field>
+            <field name="code">1</field>
+            <field name="contract_type">A PLAZO INDETERMINADO - D.LEG. 728</field>
+        </record>
+
+        <record id="type_contract_02" model="type.contract">
+            <field name="name">A TIEMPO PARCIAL</field>
+            <field name="code">2</field>
+            <field name="contract_type">A TIEMPO PARCIAL</field>
+        </record>
+
+        <record id="type_contract_03" model="type.contract">
+            <field name="name">POR INICIO O INCREM DE ACTIV</field>
+            <field name="code">3</field>
+            <field name="contract_type">POR INICIO O INCREMENTO DE ACTIVIDAD</field>
+        </record>
+
+        <record id="type_contract_04" model="type.contract">
+            <field name="name">POR NECES DEL MERCADO</field>
+            <field name="code">4</field>
+            <field name="contract_type">POR NECESIDADES DEL MERCADO</field>
+        </record>
+
+        <record id="type_contract_05" model="type.contract">
+            <field name="name">POR RECONV EMPRESARIAL</field>
+            <field name="code">5</field>
+            <field name="contract_type">POR RECONVERSIÓN EMPRESARIAL</field>
+        </record>
+
+        <record id="type_contract_06" model="type.contract">
+            <field name="name">OCASIONAL</field>
+            <field name="code">6</field>
+            <field name="contract_type">OCASIONAL</field>
+        </record>
+
+        <record id="type_contract_07" model="type.contract">
+            <field name="name">DE SUPLENCIA</field>
+            <field name="code">7</field>
+            <field name="contract_type">DE SUPLENCIA</field>
+        </record>
+
+        <record id="type_contract_08" model="type.contract">
+            <field name="name">DE EMERGENCIA</field>
+            <field name="code">8</field>
+            <field name="contract_type">DE EMERGENCIA</field>
+        </record>
+
+        <record id="type_contract_09" model="type.contract">
+            <field name="name">OBRA DETERM O SERV ESPEC</field>
+            <field name="code">9</field>
+            <field name="contract_type">PARA OBRA DETERMINADA O SERVICIO ESPECÍFICO</field>
+        </record>
+
+        <record id="type_contract_10" model="type.contract">
+            <field name="name">INTERMITENTE</field>
+            <field name="code">10</field>
+            <field name="contract_type">INTERMITENTE</field>
+        </record>
+
+        <record id="type_contract_11" model="type.contract">
+            <field name="name">DE TEMPORADA</field>
+            <field name="code">11</field>
+            <field name="contract_type">DE TEMPORADA</field>
+        </record>
+
+        <record id="type_contract_12" model="type.contract">
+            <field name="name">DE EXPORT. NO TRADIC.</field>
+            <field name="code">12</field>
+            <field name="contract_type">DE EXPORTACIÓN NO TRADICIONAL D.LEY 22342</field>
+        </record>
+
+        <record id="type_contract_13" model="type.contract">
+            <field name="name">DE EXTRANJERO - D.LEG. 689</field>
+            <field name="code">13</field>
+            <field name="contract_type">DE EXTRANJERO - D.LEG.689</field>
+        </record>
+
+        <record id="type_contract_14" model="type.contract">
+            <field name="name">CAS - D.LEG 1057</field>
+            <field name="code">14</field>
+            <field name="contract_type">ADMINISTRATIVO DE SERVICIOS - D.LEG 1057 (1)</field>
+        </record>
+
+        <record id="type_contract_15" model="type.contract">
+            <field name="name">NOMBRADO - D.LEG. N.° 276 (1)</field>
+            <field name="code">15</field>
+            <field name="contract_type">NOMBRADO - D.LEG. N.° 276 (1)</field>
+        </record>
+
+        <record id="type_contract_16" model="type.contract">
+            <field name="name">SERV. PERS - REGÍM. DE CARRERA (1)</field>
+            <field name="code">16</field>
+            <field name="contract_type">SERVICIOS PERSONALES - APLICABLES A LOS REGÍM. DE CARRERA (1)</field>
+        </record>
+
+        <record id="type_contract_17" model="type.contract">
+            <field name="name">GERENTE PÚBLICO - DL 1024</field>
+            <field name="code">17</field>
+            <field name="contract_type">GERENTE PÚBLICO - D.LEG. 1024 (1)</field>
+        </record>
+
+        <record id="type_contract_18" model="type.contract">
+            <field name="name">A DOMICILIO</field>
+            <field name="code">18</field>
+            <field name="contract_type">A DOMICILIO</field>
+        </record>
+
+        <record id="type_contract_19" model="type.contract">
+            <field name="name">FUTBOLISTAS PROFESIONALES</field>
+            <field name="code">19</field>
+            <field name="contract_type">FUTBOLISTAS PROFESIONALES</field>
+        </record>
+
+        <record id="type_contract_20" model="type.contract">
+            <field name="name">AGRARIO - LEY 27360</field>
+            <field name="code">20</field>
+            <field name="contract_type">AGRARIO - LEY 27360</field>
+        </record>
+
+        <record id="type_contract_21" model="type.contract">
+            <field name="name">MIGRANTE ANDINO</field>
+            <field name="code">21</field>
+            <field name="contract_type">MIGRANTE ANDINO DECISIÓN 545</field>
+        </record>
+
+        <record id="type_contract_22" model="type.contract">
+            <field name="name">A PLAZO INDETERMINADO - LEY 30057</field>
+            <field name="code">22</field>
+            <field name="contract_type">A PLAZO INDETERMINADO - LEY 30057</field>
+        </record>
+
+        <record id="type_contract_23" model="type.contract">
+            <field name="name">A PLAZO FIJO - LEY 30057</field>
+            <field name="code">23</field>
+            <field name="contract_type">A PLAZO FIJO - LEY 30057</field>
+        </record>
+
+        <record id="type_contract_24" model="type.contract">
+            <field name="name">NOMBRADO CARRERAS ESPECIALES</field>
+            <field name="code">24</field>
+            <field name="contract_type">NOMBRADO - CARRERAS ESPECIALES DEL SECTOR PÚBLICO</field>
+        </record>
+
+        <record id="type_contract_25" model="type.contract">
+            <field name="name">CONTRATADO CARRERAS ESPECIALES</field>
+            <field name="code">25</field>
+            <field name="contract_type">CONTRATADO - CARRERAS ESPECIALES DEL SECTOR PÚBLICO</field>
+        </record>
+
+        <record id="type_contract_99" model="type.contract">
+            <field name="name">OTROS NO PREVISTOS</field>
+            <field name="code">99</field>
+            <field name="contract_type">OTROS NO PREVISTOS</field>
+        </record>
+
+    </data>
+</odoo>

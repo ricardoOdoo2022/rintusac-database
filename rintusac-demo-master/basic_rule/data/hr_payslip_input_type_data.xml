@@ -1,0 +1,394 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--"hr.payslip.input.type"-->
+
+        <record id="hr_payslip_input_type_rbm_001" model="hr.payslip.input.type">
+            <field name="code">RBM_001</field>
+            <field name="name">Importe Remuneración Básica</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_rbs_002" model="hr.payslip.input.type">
+            <field name="code">RBS_002</field>
+            <field name="name">Importe Remuneración Básica semanal</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_asf_001" model="hr.payslip.input.type">
+            <field name="code">ASF_001</field>
+            <field name="name">Importe asignación familiar</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_mov_001" model="hr.payslip.input.type">
+            <field name="code">MOV_001</field>
+            <field name="name">Importe Movilidad</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bsm_001" model="hr.payslip.input.type">
+            <field name="code">BSM_001</field>
+            <field name="name">Remuneración de los últimos 12 meses</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_net" model="hr.payslip.input.type">
+            <field name="code">NET</field>
+            <field name="name">Importe Neto</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_com_001" model="hr.payslip.input.type">
+            <field name="code">COM_001</field>
+            <field name="name">Comisiones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_inc_001" model="hr.payslip.input.type">
+            <field name="code">INC_001</field>
+            <field name="name">Incentivos</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_dt_001" model="hr.payslip.input.type">
+            <field name="code">DT_001</field>
+            <field name="name">Importe Destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bco_001" model="hr.payslip.input.type">
+            <field name="code">BCO_001</field>
+            <field name="name">Base de cálculo promedio Comisiones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bin_001" model="hr.payslip.input.type">
+            <field name="code">BIN_001</field>
+            <field name="name">Base de cálculo promedio Incentivos</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bpd_001" model="hr.payslip.input.type">
+            <field name="code">BPD_001</field>
+            <field name="name">Destajos en últimas cuatro (4) Semanas</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bo_001" model="hr.payslip.input.type">
+            <field name="code">BO_001</field>
+            <field name="name">Bonificaciones regulares</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bcb_001" model="hr.payslip.input.type">
+            <field name="code">BCB_001</field>
+            <field name="name">Base de cálculo promedio Bonificaciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+
+        <record id="hr_payslip_input_type_dso_001" model="hr.payslip.input.type">
+            <field name="code">DSO_001</field>
+            <field name="name">Importe de dominical Obligatorio</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_dso_002" model="hr.payslip.input.type">
+            <field name="code">DSO_002</field>
+            <field name="name">Importe de dominical Destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_or_001" model="hr.payslip.input.type">
+            <field name="code">OR_001</field>
+            <field name="name">Otras Remuneraciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_val_001" model="hr.payslip.input.type">
+            <field name="code">VAL_001</field>
+            <field name="name">Vale alimentos ley 28051</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_tar_001" model="hr.payslip.input.type">
+            <field name="code">TAR_001</field>
+            <field name="name">N° de minutos Tarde</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sen_001" model="hr.payslip.input.type">
+            <field name="code">SEN_001</field>
+            <field name="name">SENATI</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sct_001" model="hr.payslip.input.type">
+            <field name="code">SCT_001</field>
+            <field name="name">SCTR</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sct_002" model="hr.payslip.input.type">
+            <field name="code">SCT_002</field>
+            <field name="name">SCTR Pensión</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sct_003" model="hr.payslip.input.type">
+            <field name="code">SCT_003</field>
+            <field name="name">SCTR Salud</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_mat_001" model="hr.payslip.input.type">
+            <field name="code">MAT_001</field>
+            <field name="name">Importe de movilidad asignada</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bsm_002" model="hr.payslip.input.type">
+            <field name="code">BSM_002</field>
+            <field name="name">Días cálculo subsidio por maternidad</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bsm_003" model="hr.payslip.input.type">
+            <field name="code">BSM_003</field>
+            <field name="name">Subsidio por maternidad</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_hed_100" model="hr.payslip.input.type">
+            <field name="code">HED_100</field>
+            <field name="name">N° de Días Extra Destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bor_002" model="hr.payslip.input.type">
+            <field name="code">BOR_002</field>
+            <field name="name">Base de cálculo promedio O. Remuneraciones</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_esa_001" model="hr.payslip.input.type">
+            <field name="code">ESA_001</field>
+            <field name="name">Importe RCSS EsSalud</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sis_001" model="hr.payslip.input.type">
+            <field name="code">SIS_001</field>
+            <field name="name">Importe SIS</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_djf_001" model="hr.payslip.input.type">
+            <field name="code">DJF_001</field>
+            <field name="name">Importe Dscto Judicial fijo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_djf_002" model="hr.payslip.input.type">
+            <field name="code">DJF_002</field>
+            <field name="name">Dscto Judicial porcentaje</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sdv_001" model="hr.payslip.input.type">
+            <field name="code">SDV_001</field>
+            <field name="name">Importe de seguro de vida</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bo_002" model="hr.payslip.input.type">
+            <field name="code">BO_002</field>
+            <field name="name">Bonificaciones por productividad u otros conceptos</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_net_003" model="hr.payslip.input.type">
+            <field name="code">NET_003</field>
+            <field name="name">Importe liquidación por pagar</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_ind_001" model="hr.payslip.input.type">
+            <field name="code">IND_001</field>
+            <field name="name">Meses/años para indemnización despido arbitrario</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bnq_001" model="hr.payslip.input.type">
+            <field name="code">BNQ_001</field>
+            <field name="name">Importe base de nómina de adelanto</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_nqa_001" model="hr.payslip.input.type">
+            <field name="code">NQA_001</field>
+            <field name="name">Porcentaje de Adelanto Quincenal</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_dnq_001" model="hr.payslip.input.type">
+            <field name="code">DNQ_001</field>
+            <field name="name">Importe desc. nómina adelanto</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_fer_001" model="hr.payslip.input.type">
+            <field name="code">FER_001</field>
+            <field name="name">Importe feriado</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_fer_002" model="hr.payslip.input.type">
+            <field name="code">FER_002</field>
+            <field name="name">Importe feriado destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sep_001" model="hr.payslip.input.type">
+            <field name="code">SEP_001</field>
+            <field name="name">Importe subvención económica practicante</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sep_002" model="hr.payslip.input.type">
+            <field name="code">SEP_002</field>
+            <field name="name">Importe media subvención económica</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bsm_004" model="hr.payslip.input.type">
+            <field name="code">BSM_004</field>
+            <field name="name">Días cálculo subsidio incapacidad temporal</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bsm_005" model="hr.payslip.input.type">
+            <field name="code">BSM_005</field>
+            <field name="name">Importe subsidio por enfermedad</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_acs_001" model="hr.payslip.input.type">
+            <field name="code">ACS_001</field>
+            <field name="name">Importe acum. EsSalud</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_sis_002" model="hr.payslip.input.type">
+            <field name="code">SIS_002</field>
+            <field name="name">Importe SIS de liquidación</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_dsm_001" model="hr.payslip.input.type">
+            <field name="code">DSM_001</field>
+            <field name="name">Importe Descanso Médico</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_dsm_002" model="hr.payslip.input.type">
+            <field name="code">DSM_002</field>
+            <field name="name">Importe Descanso Médico destajo</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_esa_100" model="hr.payslip.input.type">
+            <field name="code">ESA_100</field>
+            <field name="name">Importe Base de EsSalud</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_esa_101" model="hr.payslip.input.type">
+            <field name="code">ESA_101</field>
+            <field name="name">Importe Acum. de EsSalud</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_ajr_001" model="hr.payslip.input.type">
+            <field name="code">AJR_001</field>
+            <field name="name">Días de Ajuste remuneración febrero</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_ajr_002" model="hr.payslip.input.type">
+            <field name="code">AJR_002</field>
+            <field name="name">Ajuste remuneración meses 31</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_hrp_001" model="hr.payslip.input.type">
+            <field name="code">HRP_001</field>
+            <field name="name">Horas de permiso</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+        <record id="hr_payslip_input_type_bed_002" model="hr.payslip.input.type">
+            <field name="code">BED_002</field>
+            <field name="name">Extra Destajo de últimos seis (6) meses</field>
+            <field name="country_id" ref="base.pe"/>
+            <field name="struct_ids" eval="[(4, ref('basic_rule.hr_payroll_structure_base'))]"/>
+        </record>
+
+    </data>
+</odoo>

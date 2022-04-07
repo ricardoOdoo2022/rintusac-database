@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_employee_view_form_inherit_system_pension" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.system.pension</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group/field[@name='gender']" position="before">
+                <field name="pension_system_id" groups="hr_contract.group_hr_contract_manager"/>
+                <field name="commission_type" attrs="{'invisible': [('is_cuspp', '=', False)]}" groups="hr_contract.group_hr_contract_manager"/>
+                <field name="cuspp" attrs="{'invisible': [('is_cuspp', '=', False)]}" groups="hr_contract.group_hr_contract_manager"/>
+                <field name="pension_sctr" groups="hr_contract.group_hr_contract_manager"/>
+                <field name="is_cuspp" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

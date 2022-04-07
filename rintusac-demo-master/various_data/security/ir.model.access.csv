@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acccess_various_data_uit,various.data.uit,model_various_data_uit,,1,1,1,1
+acccess_various_data_sctr,various.data.sctr,model_various_data_sctr,,1,1,1,1
+acccess_various_data_rmv,various.data.rmv,model_various_data_rmv,,1,1,1,1
+acccess_various_data_sis,various.data.sis,model_various_data_sis,,1,1,1,1

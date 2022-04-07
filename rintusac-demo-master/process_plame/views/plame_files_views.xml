@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="plame_files_form_view" model="ir.ui.view">
+        <field name="name">plame.files.form.view</field>
+        <field name="model">plame.files</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="generate_files" string="Generar Archivos Plame" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="company_id"/>
+                        <field name="rem_filename" invisible="1"/>
+                        <field name="rem_binary" filename="rem_filename" readonly="1"/>
+                        <field name="jor_filename" invisible="1"/>
+                        <field name="jor_binary" filename="jor_filename" readonly="1"/>
+                        <field name="snl_filename" invisible="1"/>
+                        <field name="snl_binary" filename="snl_filename" readonly="1"/>
+                        <field name="for_filename" invisible="1"/>
+                        <field name="for_binary" filename="for_filename" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="plame_files_view_tree" model="ir.ui.view">
+        <field name="name">plame.files.view.tree</field>
+        <field name="model">plame.files</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_plame_files" model="ir.actions.act_window">
+        <field name="name">Reportes Plame</field>
+        <field name="res_model">plame.files</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_localization_hr_plame"
+              name="PLAME"
+              parent="localization_menu.menu_hr_localization_datos_nomina"
+
+    />
+
+    <menuitem id="hr_localization_menu_root_table_files"
+              name="Reportes Plame"
+              parent="hr_localization_menu.hr_localization_menu_root"
+              action="action_plame_files"
+    />
+
+</odoo>

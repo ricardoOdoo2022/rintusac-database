@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_contract_form_inherit_payment_condition" model="ir.ui.view">
+        <field name="name">hr.contract.view.form.inherit.payment_condition</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="special_situation_id"/>
+                <field name="payment_type_id"/>
+                    <field name="variable_payment_id"/>
+            </xpath>
+            <!--
+            <xpath expr="//group[@name='main_info_hourly']" position="after">
+                <group>
+                    
+                </group>
+            </xpath>
+            -->
+        </field>
+    </record>
+
+</odoo>

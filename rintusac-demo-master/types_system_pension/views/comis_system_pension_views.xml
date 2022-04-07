@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="comis_pension_system_view_tree" model="ir.ui.view">
+        <field name="name">comis.system.pension.view.tree</field>
+        <field name="model">comis.system.pension</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="fund"/>
+                <field name="bonus"/>
+                <field name="mixed_flow"/>
+                <field name="flow"/>
+                <field name="balance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="comis_pension_system_view_form" model="ir.ui.view">
+        <field name="name">comis.system.pension.view.form</field>
+        <field name="model">comis.system.pension</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="fund"/>
+                    <field name="bonus"/>
+                </group>
+                <group>
+                    <field name="mixed_flow"/>
+                    <field name="flow"/>
+                    <field name="balance"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>
